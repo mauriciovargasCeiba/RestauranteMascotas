@@ -70,7 +70,8 @@ pipeline {
     }
     success {
       echo 'This will run only if successful'
-      junit 'reserva/build/test-results/test/*.xml'
+      junit 'reserva/dominio/build/test-results/test/*.xml'
+      junit 'reserva/infraestructura/build/test-results/test/*.xml'
     }
     failure {
       echo 'This will run only if failed'
