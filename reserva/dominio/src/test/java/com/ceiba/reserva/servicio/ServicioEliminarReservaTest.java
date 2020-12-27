@@ -19,6 +19,6 @@ public class ServicioEliminarReservaTest {
 
         // assert
         verify(repositorioReserva, times(1)).eliminar(id);
-
     }
+
 }

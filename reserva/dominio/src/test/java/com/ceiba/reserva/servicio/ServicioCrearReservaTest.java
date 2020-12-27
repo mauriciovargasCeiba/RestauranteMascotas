@@ -15,15 +15,6 @@ import static org.mockito.Mockito.*;
 
 public class ServicioCrearReservaTest {
 
-    /*@Test
-    public void validarNumeroMesaNuloTest() {
-        // arrange
-        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conNumeroMesa(null);
-
-        // act - assert
-        BasePrueba.assertThrows(() -> reservaTestDataBuilder.build(), ExcepcionValorObligatorio.class, "Se debe ingresar el número de mesa");
-    }*/
-
     private RepositorioReserva repositorioReserva;
     private ServicioCrearReserva servicioCrearReserva;
 
@@ -41,7 +32,7 @@ public class ServicioCrearReservaTest {
         Reserva reserva = new ReservaTestDataBuilder().build();
 
         // act - assert
-        Assert.assertEquals(servicioCrearReserva.ejecutar(reserva).longValue(), 1L);
+        Assert.assertEquals(1L, servicioCrearReserva.ejecutar(reserva).longValue());
     }
 
     @Test
@@ -50,6 +41,6 @@ public class ServicioCrearReservaTest {
         Reserva reservaSinMascota = new ReservaTestDataBuilder().conIdMascota(null).build();
 
         // act - assert
-        Assert.assertEquals(servicioCrearReserva.ejecutar(reservaSinMascota).longValue(), 1L);
+        Assert.assertEquals(1L, servicioCrearReserva.ejecutar(reservaSinMascota).longValue());
     }
 }

@@ -28,3 +28,6 @@ bin/
 logs
 # gradle/
 
+### Directorio de muestra ###
+microservicio
+
