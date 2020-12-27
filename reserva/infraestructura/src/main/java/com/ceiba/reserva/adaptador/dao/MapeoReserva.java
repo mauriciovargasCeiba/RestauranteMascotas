@@ -17,9 +17,9 @@ public class MapeoReserva implements RowMapper<DtoReserva>, MapperResult {
         Integer numeroMesa = rs.getInt("numero_mesa");
         LocalDateTime fecha = extraerLocalDateTime(rs, "fecha");
         LocalDateTime hora = extraerLocalDateTime(rs, "hora");
-        String nombreCompletoCliente = rs.getString("nombre_completo");;
-        String telefonoCliente = rs.getString("telefono");;
-        String idMascota = rs.getString("id_mascota");;
+        String nombreCompletoCliente = rs.getString("nombre_completo");
+        String telefonoCliente = rs.getString("telefono");
+        String idMascota = rs.getString("id_mascota");
 
         return new DtoReserva(id, numeroMesa, fecha, hora, nombreCompletoCliente, telefonoCliente, idMascota);
     }

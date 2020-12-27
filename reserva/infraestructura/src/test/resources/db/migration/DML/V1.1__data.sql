@@ -1,1 +1,1 @@
-insert into usuario(nombre,clave,fecha_creacion) values('test','1234',now())
+insert into reserva (id, numero_mesa, fecha, hora, nombre_completo, telefono, id_mascota) values ('0001_1234',1, now(), now(), 'Cliente Test', '1234567890', '1234')

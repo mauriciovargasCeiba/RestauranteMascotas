@@ -79,6 +79,6 @@ dependencies {
 
 bootJar {
 	mainClassName = 'com.ceiba.Application'
-    baseName = 'microservicio'
+    baseName = 'RestauranteMascotas'
     version =  version
 }

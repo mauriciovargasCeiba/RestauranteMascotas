@@ -6,7 +6,7 @@ jasypt:
 server:
    port: 8084
    servlet:
-      context-path: /microservicio
+      context-path: /restaurante-mascotas
       session:
          timeout: 21600s
 
