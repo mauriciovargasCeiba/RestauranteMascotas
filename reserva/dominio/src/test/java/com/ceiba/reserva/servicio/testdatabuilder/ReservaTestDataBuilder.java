@@ -15,12 +15,13 @@ public class ReservaTestDataBuilder {
     private String idMascota;
 
     public ReservaTestDataBuilder() {
-        Integer numeroMesa = 1;
-        LocalDateTime fecha = LocalDateTime.now().plusDays(1L);
-        LocalDateTime hora = LocalDateTime.now().withHour(12);
-        String nombreCompletoCliente = "Cliente Test";
-        String telefonoCliente = "1234567890";
-        String idMascota = "1234";
+        id = "0001_1234";
+        numeroMesa = 1;
+        fecha = LocalDateTime.now().plusDays(1L);
+        hora = LocalDateTime.now().withHour(12);
+        nombreCompletoCliente = "Cliente Test";
+        telefonoCliente = "1234567890";
+        idMascota = "1234";
     }
 
     public ReservaTestDataBuilder conNumeroMesa(Integer numeroMesa) {

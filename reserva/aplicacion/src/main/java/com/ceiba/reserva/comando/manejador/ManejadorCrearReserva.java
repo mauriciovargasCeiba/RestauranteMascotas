@@ -9,7 +9,7 @@ import com.ceiba.reserva.servicio.ServicioCrearReserva;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ManejadorCrearReserva implements ManejadorComandoRespuesta<ComandoReserva, ComandoRespuesta<String>> {
+public class ManejadorCrearReserva implements ManejadorComandoRespuesta<ComandoReserva, ComandoRespuesta<Long>> {
 
     private final FabricaReserva fabricaReserva;
     private final ServicioCrearReserva servicioCrearReserva;
@@ -20,7 +20,7 @@ public class ManejadorCrearReserva implements ManejadorComandoRespuesta<ComandoR
     }
 
     @Override
-    public ComandoRespuesta<String> ejecutar(ComandoReserva comandoReserva) {
+    public ComandoRespuesta<Long> ejecutar(ComandoReserva comandoReserva) {
         Reserva reserva = fabricaReserva.crear(comandoReserva);
         return new ComandoRespuesta<>(servicioCrearReserva.ejecutar(reserva));
     }

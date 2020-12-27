@@ -23,8 +23,8 @@ public class RepositorioReservaMysql implements RepositorioReserva {
     }
 
     @Override
-    public String crear(Reserva reserva) {
-        return this.customNamedParameterJdbcTemplate.crear(reserva, sqlCrear).toString();
+    public Long crear(Reserva reserva) {
+        return this.customNamedParameterJdbcTemplate.crear(reserva, sqlCrear);
     }
 
     @Override

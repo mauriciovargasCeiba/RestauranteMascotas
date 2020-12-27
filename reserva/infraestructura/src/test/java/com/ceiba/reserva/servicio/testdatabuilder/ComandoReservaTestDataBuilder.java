@@ -1,5 +1,7 @@
 package com.ceiba.reserva.servicio.testdatabuilder;
 
+import com.ceiba.reserva.comando.ComandoReserva;
+
 import java.time.LocalDateTime;
 
 public class ComandoReservaTestDataBuilder {
@@ -13,12 +15,37 @@ public class ComandoReservaTestDataBuilder {
     private String idMascota;
 
     public ComandoReservaTestDataBuilder() {
-        Integer numeroMesa = 1;
-        LocalDateTime fecha = LocalDateTime.now().plusDays(1L);
-        LocalDateTime hora = LocalDateTime.now().withHour(12);
-        String nombreCompletoCliente = "Cliente Test";
-        String telefonoCliente = "1234567890";
-        String idMascota = "1234";
+        numeroMesa = 1;
+        fecha = LocalDateTime.now().plusDays(1L);
+        hora = LocalDateTime.now().withHour(12);
+        nombreCompletoCliente = "Cliente Test";
+        telefonoCliente = "1234567890";
+        idMascota = "1234";
+    }
+
+    public ComandoReservaTestDataBuilder conNumeroMesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
+        return this;
+    }
+
+    public ComandoReservaTestDataBuilder conFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+        return this;
+    }
+
+    public ComandoReservaTestDataBuilder conHora(LocalDateTime hora) {
+        this.hora = hora;
+        return this;
+    }
+
+    public ComandoReservaTestDataBuilder conNombreCompletoCliente(String nombreCompletoCliente) {
+        this.nombreCompletoCliente = nombreCompletoCliente;
+        return this;
+    }
+
+    public ComandoReservaTestDataBuilder conTelefonoCliente(String telefonoCliente) {
+        this.telefonoCliente = telefonoCliente;
+        return this;
     }
 
     public ComandoReservaTestDataBuilder conIdMascota(String idMascota) {
@@ -26,4 +53,7 @@ public class ComandoReservaTestDataBuilder {
         return this;
     }
 
+    public ComandoReserva build() {
+        return new ComandoReserva(id, numeroMesa, fecha, hora, nombreCompletoCliente, telefonoCliente, idMascota);
+    }
 }

@@ -11,7 +11,7 @@ public class ServicioCrearReserva {
         this.repositorioReserva = repositorioReserva;
     }
 
-    public String ejecutar(Reserva reserva) {
+    public Long ejecutar(Reserva reserva) {
         return this.repositorioReserva.crear(reserva);
     }
 

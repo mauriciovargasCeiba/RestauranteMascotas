@@ -8,7 +8,7 @@ public interface RepositorioReserva {
      * @param reserva
      * @return el id generado
      */
-    String crear(Reserva reserva);
+    Long crear(Reserva reserva);
 
     /**
      * Permite eliminar una reserva

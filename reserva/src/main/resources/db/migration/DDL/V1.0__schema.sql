@@ -1,5 +1,5 @@
 create table reserva (
- id varchar(9) not null,
+ id int not null auto_increment,
  numero_mesa int not null,
  fecha datetime not null,
  hora datetime not null,
