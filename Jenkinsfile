@@ -40,8 +40,8 @@ pipeline {
       steps{
         echo "------------>Unit Tests<------------"
         
-        sh 'gradle --b ./reserva/build.gradle clean compileJava'
-        sh 'gradle --b ./reserva/build.gradle test'
+        sh 'gradle --b ./restaurante-mascotas/build.gradle clean compileJava'
+        sh 'gradle --b ./restaurante-mascotas/build.gradle test'
       }
     }
 
@@ -59,7 +59,7 @@ pipeline {
         echo "------------>Build<------------"
         //Construir sin tarea test que se ejecutó previamente
         
-        sh 'gradle --b ./reserva/build.gradle build -x test'
+        sh 'gradle --b ./restaurante-mascotas/build.gradle build -x test'
       }
     }
   }
@@ -70,8 +70,8 @@ pipeline {
     }
     success {
       echo 'This will run only if successful'
-      junit 'reserva/dominio/build/test-results/test/*.xml'
-      junit 'reserva/infraestructura/build/test-results/test/*.xml'
+      junit 'restaurante-mascotas/dominio/build/test-results/test/*.xml'
+      junit 'restaurante-mascotas/infraestructura/build/test-results/test/*.xml'
     }
     failure {
       echo 'This will run only if failed'
