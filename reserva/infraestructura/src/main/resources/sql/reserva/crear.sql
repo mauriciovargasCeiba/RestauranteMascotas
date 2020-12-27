@@ -1,0 +1,1 @@
+insert into reserva (numero_mesa, fecha, hora, nombre_completo, telefono, id_mascota) values (:numeroMesa, :fecha, :hora, :nombreCompletoCliente, :telefonoCliente, :idMascota)
