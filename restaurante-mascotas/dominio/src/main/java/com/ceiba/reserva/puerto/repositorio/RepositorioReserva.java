@@ -1,6 +1,5 @@
 package com.ceiba.reserva.puerto.repositorio;
 
-import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 
 public interface RepositorioReserva {

@@ -1,6 +1,5 @@
 package com.ceiba.reserva.controlador;
 
-import com.ceiba.ComandoRespuesta;
 import com.ceiba.reserva.consulta.ManejadorExisteReserva;
 import com.ceiba.reserva.consulta.ManejadorListarReservas;
 import com.ceiba.reserva.modelo.dto.DtoReserva;

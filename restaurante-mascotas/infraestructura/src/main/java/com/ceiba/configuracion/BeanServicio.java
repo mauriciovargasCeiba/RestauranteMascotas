@@ -1,5 +1,6 @@
 package com.ceiba.configuracion;
 
+import com.ceiba.producto.puerto.dao.DaoProducto;
 import com.ceiba.producto.servicio.ServicioCalcularDescuentoProducto;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.ServicioCrearReserva;
@@ -25,8 +26,8 @@ public class BeanServicio {
     }
 
     @Bean
-    public ServicioCalcularDescuentoProducto servicioCalcularDescuentoProducto() {
-        return new ServicioCalcularDescuentoProducto();
+    public ServicioCalcularDescuentoProducto servicioCalcularDescuentoProducto(DaoProducto daoProducto) {
+        return new ServicioCalcularDescuentoProducto(daoProducto);
     }
 
     @Bean

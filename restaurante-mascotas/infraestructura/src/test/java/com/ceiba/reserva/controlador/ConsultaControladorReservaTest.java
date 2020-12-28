@@ -9,10 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,13 +37,26 @@ public class ConsultaControladorReservaTest {
     @Test
     public void existe() throws Exception {
         // arrange
-        String id = "1";
+        Long id = 2L;
 
         // act - assert
         mockMvc.perform(
             get("/reservas/{id}", id)
             .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk())
-        .andExpect(jsonPath("$.nombreCompletoCliente", is("Cliente Test")));
+         .andExpect(jsonPath("$.nombreCompletoCliente", is("Cliente Test")));
+    }
+
+    @Test
+    public void noExiste() throws Exception {
+        // arrange
+        Long id = 9999L;
+
+        // act - assert
+        mockMvc.perform(
+                get("/reservas/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
+         .andExpect(content().string(""));
     }
 }

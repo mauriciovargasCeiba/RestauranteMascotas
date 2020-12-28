@@ -1,6 +1,8 @@
 package com.ceiba.producto.controlador;
 
 import com.ceiba.ApplicationMock;
+import com.ceiba.reserva.comando.ComandoReserva;
+import com.ceiba.reserva.servicio.testdatabuilder.ComandoReservaTestDataBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,22 @@ public class ComandoControladorProductoTest {
     private MockMvc mockMvc;
 
     @Test
+    public void calcularDescuento() throws Exception {
+        // arrange
+        Long id = 1L;
+        ComandoReserva reserva = new ComandoReservaTestDataBuilder().build();
+        when(restTemplate.getForObject(anyString(), any())).thenReturn(reserva);
+
+        // act - assert
+        mockMvc.perform(
+                post("/productos?id_reserva={id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
+         .andExpect(jsonPath("$.valor", hasSize(15)))
+         .andExpect(jsonPath("$.valor[0].nombre", is("Papas Fritas")));;
+    }
+
+    @Test
     public void calcularDescuentoAReservaNula() throws Exception {
         // arrange
         Long id = 2L;
@@ -39,11 +57,10 @@ public class ComandoControladorProductoTest {
         mockMvc.perform(
                 post("/productos?id_reserva={id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().isInternalServerError())
         .andExpect(
                 jsonPath("$.mensaje",
-                is("No fue posible calcular los descuentos para la reserva con id 2. Esta reserva no existe")
+                is(String.format("No fue posible calcular los descuentos para la reserva con id %s. Esta reserva no existe", id))
         ));
     }
 }

@@ -1,14 +1,21 @@
 package com.ceiba.producto.servicio;
 
+import com.ceiba.producto.modelo.dto.DtoProducto;
+import com.ceiba.producto.puerto.dao.DaoProducto;
 import com.ceiba.reserva.modelo.entidad.Reserva;
+
+import java.util.List;
 
 public class ServicioCalcularDescuentoProducto {
 
-    public ServicioCalcularDescuentoProducto() {
+    private final DaoProducto daoProducto;
+
+    public ServicioCalcularDescuentoProducto(DaoProducto daoProducto) {
+        this.daoProducto = daoProducto;
     }
 
-    public String ejecutar(Reserva reserva) {
-       return String.format("Este es el resultado del cálculo de un descuento según el id de una reserva. El id es %s", reserva.getId());
+    public List<DtoProducto> ejecutar(Reserva reserva) {
+       return daoProducto.listar();
     }
 
 }
