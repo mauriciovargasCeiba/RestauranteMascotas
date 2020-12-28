@@ -63,7 +63,7 @@ public class ServicioCalcularDescuentoProductoTest {
         List<DtoProducto> productosConDescuento = servicioCalcularDescuentoProducto.ejecutar(reserva);
 
         // assert
-        Assert.assertEquals(0, productosConDescuento.get(0).getPrecio().longValue(), 0.1);
+        Assert.assertEquals(0.0, productosConDescuento.get(0).getPrecio().longValue(), 0.1);
 
     }
 

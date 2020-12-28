@@ -19,7 +19,7 @@ public class ServicioCalcularDescuentoProducto {
     public List<DtoProducto> ejecutar(Reserva reserva) {
         List<DtoProducto> productos = daoProducto.listar();
 
-        boolean reservaConMascota = !reserva.getIdMascota().equals("0000");
+        boolean reservaConMascota = !"0000".equals(reserva.getIdMascota());
         if (reservaConMascota) {
 
             boolean reservaEntreDosPmYCuatroPm = reserva.getHora().getHour() >= 14 && reserva.getHora().getHour() <= 16;
@@ -46,13 +46,13 @@ public class ServicioCalcularDescuentoProducto {
 
     private List<DtoProducto> aplicarDescuentoDeDosPmACuatroPmEnSemana(List<DtoProducto> productos) {
         return modificarProductosConDescuento(productos, producto -> {
-            boolean productoEsComidaParaHumano = producto.getTipo().equals("COMIDA") && producto.getTipoCliente().equals("HUMANO");
-            return productoEsComidaParaHumano ? producto.getPrecio() * 0.9 : producto.getPrecio();
+            boolean productoEsComidaParaHumano = "COMIDA".equals(producto.getTipo()) && "HUMANO".equals(producto.getTipoCliente());
+            return productoEsComidaParaHumano ? (producto.getPrecio() * 0.9) : producto.getPrecio();
         });
     }
 
     private List<DtoProducto> aplicarDescuentoDeDiaPrimeroOQuince(List<DtoProducto> productos) {
-       return modificarProductosConDescuento(productos, producto -> producto.getTipo().equals("OTROS")  && producto.getTipoCliente().equals("ANIMAL") ? 0.0 : producto.getPrecio());
+       return modificarProductosConDescuento(productos, producto -> "OTROS".equals(producto.getTipo())  && "ANIMAL".equals(producto.getTipoCliente()) ? 0.0 : producto.getPrecio());
     }
 
 }
