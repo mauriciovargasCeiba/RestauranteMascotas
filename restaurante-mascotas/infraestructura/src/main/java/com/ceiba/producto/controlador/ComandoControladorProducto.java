@@ -1,6 +1,7 @@
 package com.ceiba.producto.controlador;
 
 import com.ceiba.ComandoRespuesta;
+import com.ceiba.infraestructura.excepcion.ExcepcionTecnica;
 import com.ceiba.producto.comando.manejador.ManejadorCalcularDescuentoProducto;
 import com.ceiba.reserva.comando.ComandoReserva;
 import io.swagger.annotations.Api;
@@ -29,9 +30,15 @@ public class ComandoControladorProducto {
     @PostMapping
     @ApiOperation("Calcular descuento de productos según la reserva")
     public ComandoRespuesta<String> calcularDescuento(@RequestParam(name = "id_reserva") String idReserva) {
+
         ComandoReserva comandoReserva = restTemplate.getForObject(
                 String.format("http://localhost:8083/restaurante-mascotas/reservas/%s", idReserva), ComandoReserva.class
         );
+
+        if (comandoReserva == null) {
+            throw new ExcepcionTecnica(String.format("No fue posible calcular los descuentos para la reserva con id %s. Esta reserva no existe", idReserva));
+        }
+
         return manejadorCalcularDescuentoProducto.ejecutar(comandoReserva);
     }
 }

@@ -33,4 +33,17 @@ public class ConsultaControladorReservaTest {
         .andExpect(jsonPath("$", hasSize(1)))
         .andExpect(jsonPath("$[0].nombreCompletoCliente", is("Cliente Test")));
     }
+
+    @Test
+    public void existe() throws Exception {
+        // arrange
+        String id = "1";
+
+        // act - assert
+        mockMvc.perform(
+            get("/reservas/{id}", id)
+            .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
+        .andExpect(jsonPath("$.nombreCompletoCliente", is("Cliente Test")));
+    }
 }

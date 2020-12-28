@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class DtoReserva {
     private String id;
     private Integer numeroMesa;
