@@ -4,6 +4,7 @@ import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class DaoReservaMySql implements DaoReserva {
     @SqlStatement(namespace="reserva", value="listar")
     private static String sqlListar;
 
+    @SqlStatement(namespace="reserva", value="existe")
+    private static String sqlExiste;
+
     public DaoReservaMySql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
     }
@@ -24,4 +28,15 @@ public class DaoReservaMySql implements DaoReserva {
     public List<DtoReserva> listar() {
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar, new MapeoReserva());
     }
+
+    @Override
+    public DtoReserva existe(String id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", id);
+        List<DtoReserva> dtoReservas = customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlExiste, paramSource, new MapeoReserva());
+
+        // ¿Arrojar excepción o retornar objeto vacío?
+        return !dtoReservas.isEmpty() ? dtoReservas.get(0) : new DtoReserva();
+    }
+
 }
