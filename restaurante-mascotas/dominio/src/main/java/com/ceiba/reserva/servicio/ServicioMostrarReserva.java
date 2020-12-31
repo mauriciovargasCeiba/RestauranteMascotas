@@ -19,9 +19,9 @@ public class ServicioMostrarReserva {
         return daoReserva.mostrar(idReserva);
     }
 
-    private void validarExistenciaReserva(String idReserva) {
-        if (Boolean.FALSE.equals(daoReserva.existe(idReserva))) {
-            throw new ExcepcionReservaInexistente(String.format(LA_RESERVA_CON_ID_NO_EXISTE_EN_EL_SISTEMA, idReserva));
+    private void validarExistenciaReserva(String idGenerado) {
+        if (Boolean.FALSE.equals(daoReserva.existe(idGenerado))) {
+            throw new ExcepcionReservaInexistente(String.format(LA_RESERVA_CON_ID_NO_EXISTE_EN_EL_SISTEMA, idGenerado));
         }
     }
 }

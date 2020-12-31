@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class DtoReserva {
     private Long id;
     private Integer numeroMesa;
-    private LocalDateTime fechayHora;
+    private LocalDateTime fechaYHora;
     private String nombreCompletoCliente;
     private String telefonoCliente;
     private Long idMascota;
