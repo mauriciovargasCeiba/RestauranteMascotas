@@ -1,14 +1,17 @@
 package com.ceiba.reserva.modelo.entidad;
 
 import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
+import com.ceiba.reserva.servicio.ServicioExtraerHoraReserva;
 import com.ceiba.reserva.servicio.ServicioGenerarCodigoReserva;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
-import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.*;
-import static com.ceiba.reserva.CondicionDescuentoReserva.*;
+import static com.ceiba.reserva.CondicionFechaDescuentoReserva.*;
+import static com.ceiba.reserva.CondicionHoraDescuentoReserva.HORA_CUATRO_DE_LA_TARDE;
+import static com.ceiba.reserva.CondicionHoraDescuentoReserva.HORA_DOS_DE_LA_TARDE;
 
 @Getter
 public class Reserva {
@@ -67,10 +70,10 @@ public class Reserva {
     }
 
     public boolean esEntreDosPmYCuatroPmYNoEsDomingo() {
-        int hora = fechaYHora.getHour();
+        LocalTime hora = ServicioExtraerHoraReserva.ejecutar(this);
         int diaSemana = fechaYHora.getDayOfWeek().getValue();
-        return (hora >= HORA_DOS_DE_LA_TARDE.obtenerValorNumerico()
-                && hora <= HORA_CUATRO_DE_LA_TARDE.obtenerValorNumerico()) &&
+        return (hora.isAfter(HORA_DOS_DE_LA_TARDE.obtenerHora())
+                && hora.isBefore(HORA_CUATRO_DE_LA_TARDE.obtenerHora())) &&
                 diaSemana != DIA_SEMANA_DOMINGO.obtenerValorNumerico();
     }
 

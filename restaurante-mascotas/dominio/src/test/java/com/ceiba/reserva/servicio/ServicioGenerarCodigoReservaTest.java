@@ -12,7 +12,7 @@ public class ServicioGenerarCodigoReservaTest {
     @Test
     public void ejecutarConReservaEntreDosPmYCuatroPmYNoEsDomingo() {
         // arrange
-        LocalDateTime entreDosPmYCuatroPmYNoEsDomingo = LocalDateTime.of(2120, 12, 31, 15, 0);
+        LocalDateTime entreDosPmYCuatroPmYNoEsDomingo = LocalDateTime.of(2120, 12, 31, 15, 0,0);
         Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(entreDosPmYCuatroPmYNoEsDomingo).build();
 
         // act - assert
@@ -21,13 +21,42 @@ public class ServicioGenerarCodigoReservaTest {
     }
 
     @Test
-    public void ejecutarConReservaDiaPrimeroODiaQuinceDelMes() {
+    public void ejecutarConReservaDespuesDeCuatroPm() {
         // arrange
-        LocalDateTime conReservaDiaPrimeroODiaQuinceDelMes = LocalDateTime.of(2120, 12, 1, 0, 0);
-        Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(conReservaDiaPrimeroODiaQuinceDelMes).build();
+        LocalDateTime despuesDeCuatroPmYNoEsDomingo = LocalDateTime.of(2120, 12, 31, 16, 0, 1);
+        Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(despuesDeCuatroPmYNoEsDomingo).build();
+
+        // act - assert
+        Assert.assertEquals("000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+    }
+
+    @Test
+    public void ejecutarConReservaDomingo() {
+        // arrange
+        LocalDateTime domingo = LocalDateTime.of(2119, 12, 31, 15, 0, 0);
+        Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(domingo).build();
+
+        // act - assert
+        Assert.assertEquals("000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+    }
+
+    @Test
+    public void ejecutarConReservaDiaPrimeroDelMes() {
+        // arrange
+        LocalDateTime conReservaDiaPrimeroDelMes = LocalDateTime.of(2120, 12, 1, 0, 0, 0);
+        Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(conReservaDiaPrimeroDelMes).build();
 
         // act - assert
         Assert.assertEquals("003_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+    }
 
+    @Test
+    public void ejecutarConReservaDiaQuinceDelMes() {
+        // arrange
+        LocalDateTime conReservaDiaQuinceDelMes = LocalDateTime.of(2120, 12, 15, 0, 0, 0);
+        Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(conReservaDiaQuinceDelMes).build();
+
+        // act - assert
+        Assert.assertEquals("003_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
 }
