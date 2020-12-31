@@ -1,1 +1,1 @@
-select count(1) from reserva where id = :id
+select count(1) from reserva where codigo_generado = :codigoGenerado

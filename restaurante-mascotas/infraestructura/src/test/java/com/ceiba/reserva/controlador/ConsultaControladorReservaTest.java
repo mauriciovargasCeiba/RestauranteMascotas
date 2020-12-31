@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = ApplicationMock.class)
+@ContextConfiguration(classes = ApplicationMock.class) // ¿Cómo manejar reutilización del contexto?
 @WebMvcTest(ConsultaControladorReserva.class)
 public class ConsultaControladorReservaTest {
 
@@ -37,11 +37,11 @@ public class ConsultaControladorReservaTest {
     @Test
     public void mostrar() throws Exception {
         // arrange
-        Long id = 2L;
+        String codigoGenerado = "000_1234";
 
         // act - assert
         mockMvc.perform(
-            get("/reservas/{id}", id)
+            get("/reservas/{codigoGenerado}", codigoGenerado)
             .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk())
          .andExpect(jsonPath("$.nombreCompletoCliente", is("Cliente Test")));
@@ -50,13 +50,13 @@ public class ConsultaControladorReservaTest {
     @Test
     public void noExiste() throws Exception {
         // arrange
-        Long id = 9999L;
+        String codigoGenerado = "9999";
 
         // act - assert
         mockMvc.perform(
-                get("/reservas/{id}", id)
+                get("/reservas/{codigoGenerado}", codigoGenerado)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isNotFound())
-         .andExpect(jsonPath("$.mensaje", is("La reserva con id 9999 no existe en el sistema")));
+         .andExpect(jsonPath("$.mensaje", is("La reserva con código 9999 no existe en el sistema")));
     }
 }

@@ -16,13 +16,13 @@ import org.springframework.web.client.RestTemplate;
 public class BeanServicio {
 
     @Bean
-    public ServicioReservar servicioCrearReserva(RepositorioReserva repositorioReserva) {
+    public ServicioReservar servicioReservar(RepositorioReserva repositorioReserva) {
         return new ServicioReservar(repositorioReserva);
     }
 
     @Bean
-    public ServicioCancelarReserva servicioEliminarReserva(RepositorioReserva repositorioReserva) {
-        return new ServicioCancelarReserva(repositorioReserva);
+    public ServicioCancelarReserva servicioCancelarReserva(RepositorioReserva repositorioReserva, DaoReserva daoReserva) {
+        return new ServicioCancelarReserva(repositorioReserva, daoReserva);
     }
 
     @Bean

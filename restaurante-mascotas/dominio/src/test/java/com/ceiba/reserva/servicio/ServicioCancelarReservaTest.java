@@ -1,5 +1,6 @@
 package com.ceiba.reserva.servicio;
 
+import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import org.junit.Test;
 
@@ -10,15 +11,18 @@ public class ServicioCancelarReservaTest {
     @Test
     public void ejecutar() {
         // arrange
-        Long id = 1L;
+        String codigoGenerado = "123_1234";
         RepositorioReserva repositorioReserva = mock(RepositorioReserva.class);
-        ServicioCancelarReserva servicioCancelarReserva = new ServicioCancelarReserva(repositorioReserva);
+        DaoReserva daoReserva = mock(DaoReserva.class);
+        when(daoReserva.existe(codigoGenerado)).thenReturn(true);
+
+        ServicioCancelarReserva servicioCancelarReserva = new ServicioCancelarReserva(repositorioReserva, daoReserva);
 
         // act
-        servicioCancelarReserva.ejecutar(id);
+        servicioCancelarReserva.ejecutar(codigoGenerado);
 
         // assert
-        verify(repositorioReserva, times(1)).eliminar(id);
+        verify(repositorioReserva, times(1)).cancelar(codigoGenerado);
     }
 
 }

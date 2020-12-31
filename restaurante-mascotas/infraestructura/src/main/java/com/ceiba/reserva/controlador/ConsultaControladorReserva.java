@@ -28,9 +28,9 @@ public class ConsultaControladorReserva {
         return manejadorListarReservas.ejecutar();
     }
 
-    @GetMapping(value = "/{id}")
-    @ApiOperation("Mostrar reserva con id")
-    public DtoReserva mostrar(@PathVariable String id) {
-        return manejadorMostrarReserva.ejecutar(id);
+    @GetMapping(value = "/{codigoGenerado}")
+    @ApiOperation("Mostrar reserva con código generado")
+    public DtoReserva mostrar(@PathVariable String codigoGenerado) {
+        return manejadorMostrarReserva.ejecutar(codigoGenerado);
     }
 }

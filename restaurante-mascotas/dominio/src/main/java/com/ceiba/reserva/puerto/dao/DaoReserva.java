@@ -12,16 +12,16 @@ public interface DaoReserva {
     List<DtoReserva> listar();
 
     /**
-     * Permite mostrar una reserva con un idGenerado
-     * @param idGenerado
-     * @return una reserva con idGenerado
+     * Permite mostrar una reserva con un codigoGenerado
+     * @param codigoGenerado
+     * @return una reserva con codigoGenerado
      */
-    DtoReserva mostrar(String idGenerado);
+    DtoReserva mostrar(String codigoGenerado);
 
     /**
-     * Permite validar si existe una reserva con un idGenerado
-     * @param idGenerado
+     * Permite validar si existe una reserva con un codigoGenerado
+     * @param codigoGenerado
      * @return si existe o no
      */
-    Boolean existe(String idGenerado);
+    Boolean existe(String codigoGenerado);
 }

@@ -1,12 +1,11 @@
 package com.ceiba.reserva.servicio;
 
-import com.ceiba.reserva.excepcion.ExcepcionReservaInexistente;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 
-public class ServicioMostrarReserva {
+import static com.ceiba.reserva.ValidadorExistenciaReserva.*;
 
-    public static final String LA_RESERVA_CON_ID_NO_EXISTE_EN_EL_SISTEMA = "La reserva con id %s no existe en el sistema";
+public class ServicioMostrarReserva {
 
     private final DaoReserva daoReserva;
 
@@ -14,14 +13,9 @@ public class ServicioMostrarReserva {
         this.daoReserva = daoReserva;
     }
 
-    public DtoReserva ejecutar(String idReserva) {
-        validarExistenciaReserva(idReserva);
-        return daoReserva.mostrar(idReserva);
+    public DtoReserva ejecutar(String codigoGenerado) {
+        validarExistenciaReserva(codigoGenerado, daoReserva);
+        return daoReserva.mostrar(codigoGenerado);
     }
 
-    private void validarExistenciaReserva(String idGenerado) {
-        if (Boolean.FALSE.equals(daoReserva.existe(idGenerado))) {
-            throw new ExcepcionReservaInexistente(String.format(LA_RESERVA_CON_ID_NO_EXISTE_EN_EL_SISTEMA, idGenerado));
-        }
-    }
 }

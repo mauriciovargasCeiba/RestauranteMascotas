@@ -4,16 +4,16 @@ import com.ceiba.reserva.modelo.entidad.Reserva;
 
 public interface RepositorioReserva {
     /**
-     * Permite crear un reserva
+     * Permite hacer una reserva
      * @param reserva
      * @return el id generado
      */
-    Long crear(Reserva reserva);
+    Long reservar(Reserva reserva);
 
     /**
-     * Permite eliminar una reserva
-     * @param id
+     * Permite cancelar una reserva
+     * @param codigoGenerado
      */
-    void eliminar(Long id);
+    void cancelar(String codigoGenerado);
 
 }

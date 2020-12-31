@@ -22,7 +22,7 @@ public class ServicioReservarTest {
     public void inicializar() {
         RepositorioReserva repositorioReserva = mock(RepositorioReserva.class);
         servicioReservar = new ServicioReservar(repositorioReserva);
-        when(repositorioReserva.crear(any())).thenReturn(1L);
+        when(repositorioReserva.reservar(any())).thenReturn(1L);
 
     }
 

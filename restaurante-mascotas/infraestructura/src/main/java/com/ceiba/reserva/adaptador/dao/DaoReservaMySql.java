@@ -33,17 +33,18 @@ public class DaoReservaMySql implements DaoReserva {
     }
 
     @Override
-    public DtoReserva mostrar(String idGenerado) {
+    public DtoReserva mostrar(String codigoGenerado) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("id", idGenerado);
+        paramSource.addValue("codigoGenerado", codigoGenerado);
 
+        // Para hacer: prevenir NPE
         return customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlMostrar, paramSource, new MapeoReserva()).get(0);
     }
 
     @Override
-    public Boolean existe(String idGenerado) {
+    public Boolean existe(String codigoGenerado) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("id", idGenerado);
+        paramSource.addValue("codigoGenerado", codigoGenerado);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, Boolean.class);
     }

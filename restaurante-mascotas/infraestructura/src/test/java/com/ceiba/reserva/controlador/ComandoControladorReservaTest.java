@@ -30,7 +30,7 @@ public class ComandoControladorReservaTest {
     private MockMvc mockMvc;
 
     @Test
-    public void crear() throws Exception {
+    public void reservar() throws Exception {
         // arrange
         ComandoReserva reserva = new ComandoReservaTestDataBuilder().build();
 
@@ -44,13 +44,13 @@ public class ComandoControladorReservaTest {
     }
 
     @Test
-    public void eliminar() throws Exception {
+    public void cancelar() throws Exception {
         // arrange
-        Long id = 1L;
+        String codigoGenerado = "003_1234";
 
         // act - assert
         mockMvc.perform(
-                delete("/reservas/{id}", id)
+                delete("/reservas/{codigoGenerado}", codigoGenerado)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());

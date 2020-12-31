@@ -5,7 +5,7 @@ import com.ceiba.reserva.servicio.ServicioCancelarReserva;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ManejadorCancelarReserva implements ManejadorComando<Long> {
+public class ManejadorCancelarReserva implements ManejadorComando<String> {
 
     private final ServicioCancelarReserva servicioCancelarReserva;
 
@@ -14,7 +14,7 @@ public class ManejadorCancelarReserva implements ManejadorComando<Long> {
     }
 
     @Override
-    public void ejecutar(Long idReserva) {
-        servicioCancelarReserva.ejecutar(idReserva);
+    public void ejecutar(String codigoGenerado) {
+        servicioCancelarReserva.ejecutar(codigoGenerado);
     }
 }

@@ -1,3 +1,3 @@
 delete
 from reserva
-where id = :id
+where codigo_generado = :codigoGenerado

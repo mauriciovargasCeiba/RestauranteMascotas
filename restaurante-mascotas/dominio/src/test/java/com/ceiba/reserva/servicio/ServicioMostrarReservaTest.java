@@ -36,14 +36,14 @@ public class ServicioMostrarReservaTest {
     @Test
     public void ejecutarConReservaInexistente() {
         // arrange
-        String idGenerado = "123_9999";
-        when(daoReserva.existe(idGenerado)).thenReturn(false);
+        String codigoGenerado = "123_9999";
+        when(daoReserva.existe(codigoGenerado)).thenReturn(false);
 
         // act - assert
         BasePrueba.assertThrows(
-                () -> servicioMostrarReserva.ejecutar(idGenerado),
+                () -> servicioMostrarReserva.ejecutar(codigoGenerado),
                 ExcepcionReservaInexistente.class,
-                "La reserva con id 123_9999 no existe en el sistema"
+                "La reserva con código 123_9999 no existe en el sistema"
         );
     }
 

@@ -12,7 +12,7 @@ public class ServicioReservar {
     }
 
     public Long ejecutar(Reserva reserva) {
-        return this.repositorioReserva.crear(reserva);
+        return this.repositorioReserva.reservar(reserva);
     }
 
 }

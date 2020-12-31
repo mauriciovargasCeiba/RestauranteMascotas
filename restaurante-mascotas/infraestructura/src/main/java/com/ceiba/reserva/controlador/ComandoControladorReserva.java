@@ -25,15 +25,15 @@ public class ComandoControladorReserva {
     }
     
     @PostMapping
-    @ApiOperation("Crear reserva")
-    public ComandoRespuesta<Long> crear(@RequestBody ComandoReserva comandoReserva) {
+    @ApiOperation("Reservar")
+    public ComandoRespuesta<Long> reservar(@RequestBody ComandoReserva comandoReserva) {
         return manejadorReservar.ejecutar(comandoReserva);
     }
 
-    @DeleteMapping(value = "/{id}")
-    @ApiOperation("Eliminar reserva")
-    public void eliminar(@PathVariable Long id) {
-        manejadorCancelarReserva.ejecutar(id);
+    @DeleteMapping(value = "/{codigoGenerado}")
+    @ApiOperation("Cancelar reserva")
+    public void cancelar(@PathVariable String codigoGenerado) {
+        manejadorCancelarReserva.ejecutar(codigoGenerado);
     }
 
 }

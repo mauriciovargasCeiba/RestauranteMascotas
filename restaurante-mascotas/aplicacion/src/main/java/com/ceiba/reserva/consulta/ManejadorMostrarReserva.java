@@ -13,7 +13,7 @@ public class ManejadorMostrarReserva {
         this.servicioMostrarReserva = servicioMostrarReserva;
     }
 
-    public DtoReserva ejecutar(String idReserva) {
-        return servicioMostrarReserva.ejecutar(idReserva);
+    public DtoReserva ejecutar(String codigoGenerado) {
+        return servicioMostrarReserva.ejecutar(codigoGenerado);
     }
 }

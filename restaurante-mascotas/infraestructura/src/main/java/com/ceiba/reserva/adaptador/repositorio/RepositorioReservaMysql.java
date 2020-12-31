@@ -12,8 +12,8 @@ public class RepositorioReservaMysql implements RepositorioReserva {
 
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
-    @SqlStatement(namespace="reserva", value="crear")
-    private static String sqlCrear;
+    @SqlStatement(namespace="reserva", value="reservar")
+    private static String sqlReservar;
 
     @SqlStatement(namespace="reserva", value="eliminar")
     private static String sqlEliminar;
@@ -23,14 +23,14 @@ public class RepositorioReservaMysql implements RepositorioReserva {
     }
 
     @Override
-    public Long crear(Reserva reserva) {
-        return this.customNamedParameterJdbcTemplate.crear(reserva, sqlCrear);
+    public Long reservar(Reserva reserva) {
+        return this.customNamedParameterJdbcTemplate.crear(reserva, sqlReservar);
     }
 
     @Override
-    public void eliminar(Long id) {
+    public void cancelar(String codigoGenerado) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("id", id);
+        paramSource.addValue("codigoGenerado", codigoGenerado);
 
         this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminar, paramSource);
     }
