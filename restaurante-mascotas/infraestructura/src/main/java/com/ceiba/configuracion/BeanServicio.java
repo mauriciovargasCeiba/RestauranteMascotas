@@ -1,10 +1,10 @@
 package com.ceiba.configuracion;
 
-import com.ceiba.producto.puerto.dao.DaoProducto;
-import com.ceiba.producto.servicio.ServicioCalcularDescuentoProducto;
+import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
-import com.ceiba.reserva.servicio.ServicioCrearReserva;
-import com.ceiba.reserva.servicio.ServicioEliminarReserva;
+import com.ceiba.reserva.servicio.ServicioReservar;
+import com.ceiba.reserva.servicio.ServicioCancelarReserva;
+import com.ceiba.reserva.servicio.ServicioMostrarReserva;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -16,18 +16,18 @@ import org.springframework.web.client.RestTemplate;
 public class BeanServicio {
 
     @Bean
-    public ServicioCrearReserva servicioCrearReserva(RepositorioReserva repositorioReserva) {
-        return new ServicioCrearReserva(repositorioReserva);
+    public ServicioReservar servicioCrearReserva(RepositorioReserva repositorioReserva) {
+        return new ServicioReservar(repositorioReserva);
     }
 
     @Bean
-    public ServicioEliminarReserva servicioEliminarReserva(RepositorioReserva repositorioReserva) {
-        return new ServicioEliminarReserva(repositorioReserva);
+    public ServicioCancelarReserva servicioEliminarReserva(RepositorioReserva repositorioReserva) {
+        return new ServicioCancelarReserva(repositorioReserva);
     }
 
     @Bean
-    public ServicioCalcularDescuentoProducto servicioCalcularDescuentoProducto(DaoProducto daoProducto) {
-        return new ServicioCalcularDescuentoProducto(daoProducto);
+    public ServicioMostrarReserva servicioMostrarReserva(DaoReserva daoReserva) {
+        return new ServicioMostrarReserva(daoReserva);
     }
 
     @Bean

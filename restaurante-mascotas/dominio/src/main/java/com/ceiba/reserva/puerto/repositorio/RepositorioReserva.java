@@ -14,6 +14,6 @@ public interface RepositorioReserva {
      * Permite eliminar una reserva
      * @param id
      */
-    void eliminar(String id);
+    void eliminar(Long id);
 
 }

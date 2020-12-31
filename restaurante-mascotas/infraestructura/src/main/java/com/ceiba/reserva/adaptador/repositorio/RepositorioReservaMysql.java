@@ -28,7 +28,7 @@ public class RepositorioReservaMysql implements RepositorioReserva {
     }
 
     @Override
-    public void eliminar(String id) {
+    public void eliminar(Long id) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("id", id);
 

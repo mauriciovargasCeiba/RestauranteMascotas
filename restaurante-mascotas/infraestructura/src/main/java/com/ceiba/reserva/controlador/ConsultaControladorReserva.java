@@ -1,6 +1,6 @@
 package com.ceiba.reserva.controlador;
 
-import com.ceiba.reserva.consulta.ManejadorExisteReserva;
+import com.ceiba.reserva.consulta.ManejadorMostrarReserva;
 import com.ceiba.reserva.consulta.ManejadorListarReservas;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import io.swagger.annotations.Api;
@@ -15,11 +15,11 @@ import java.util.List;
 public class ConsultaControladorReserva {
 
     private final ManejadorListarReservas manejadorListarReservas;
-    private final ManejadorExisteReserva manejadorExisteReserva;
+    private final ManejadorMostrarReserva manejadorMostrarReserva;
 
-    public ConsultaControladorReserva(ManejadorListarReservas manejadorListarReservas, ManejadorExisteReserva manejadorExisteReserva) {
+    public ConsultaControladorReserva(ManejadorListarReservas manejadorListarReservas, ManejadorMostrarReserva manejadorMostrarReserva) {
         this.manejadorListarReservas = manejadorListarReservas;
-        this.manejadorExisteReserva = manejadorExisteReserva;
+        this.manejadorMostrarReserva = manejadorMostrarReserva;
     }
 
     @GetMapping
@@ -29,8 +29,8 @@ public class ConsultaControladorReserva {
     }
 
     @GetMapping(value = "/{id}")
-    @ApiOperation("Existe reserva con id")
-    public DtoReserva existe(@PathVariable String id) {
-        return manejadorExisteReserva.ejecutar(id);
+    @ApiOperation("Mostrar reserva con id")
+    public DtoReserva mostrar(@PathVariable String id) {
+        return manejadorMostrarReserva.ejecutar(id);
     }
 }

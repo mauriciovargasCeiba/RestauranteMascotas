@@ -2,8 +2,8 @@ package com.ceiba.reserva.controlador;
 
 import com.ceiba.ComandoRespuesta;
 import com.ceiba.reserva.comando.ComandoReserva;
-import com.ceiba.reserva.comando.manejador.ManejadorCrearReserva;
-import com.ceiba.reserva.comando.manejador.ManejadorEliminarReserva;
+import com.ceiba.reserva.comando.manejador.ManejadorReservar;
+import com.ceiba.reserva.comando.manejador.ManejadorCancelarReserva;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = {"Controlador comando reserva"})
 public class ComandoControladorReserva {
     
-    private final ManejadorCrearReserva manejadorCrearReserva;
-    private final ManejadorEliminarReserva manejadorEliminarReserva;
+    private final ManejadorReservar manejadorReservar;
+    private final ManejadorCancelarReserva manejadorCancelarReserva;
 
     @Autowired
-    public ComandoControladorReserva(ManejadorCrearReserva manejadorCrearReserva, ManejadorEliminarReserva manejadorEliminarReserva) {
-        this.manejadorCrearReserva = manejadorCrearReserva;
-        this.manejadorEliminarReserva = manejadorEliminarReserva;
+    public ComandoControladorReserva(ManejadorReservar manejadorReservar, ManejadorCancelarReserva manejadorCancelarReserva) {
+        this.manejadorReservar = manejadorReservar;
+        this.manejadorCancelarReserva = manejadorCancelarReserva;
     }
     
     @PostMapping
     @ApiOperation("Crear reserva")
     public ComandoRespuesta<Long> crear(@RequestBody ComandoReserva comandoReserva) {
-        return manejadorCrearReserva.ejecutar(comandoReserva);
+        return manejadorReservar.ejecutar(comandoReserva);
     }
 
     @DeleteMapping(value = "/{id}")
     @ApiOperation("Eliminar reserva")
-    public void eliminar(@PathVariable String id) {
-        manejadorEliminarReserva.ejecutar(id);
+    public void eliminar(@PathVariable Long id) {
+        manejadorCancelarReserva.ejecutar(id);
     }
 
 }

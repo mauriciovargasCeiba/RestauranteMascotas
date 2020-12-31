@@ -6,22 +6,20 @@ import java.time.LocalDateTime;
 
 public class ReservaTestDataBuilder {
 
-    private String id;
+    private Long id;
     private Integer numeroMesa;
-    private LocalDateTime fecha;
-    private LocalDateTime hora;
+    private LocalDateTime fechaYHora;
     private String nombreCompletoCliente;
     private String telefonoCliente;
-    private String idMascota;
+    private Long idMascota;
 
     public ReservaTestDataBuilder() {
-        id = "0001_1234";
+        id = 1L;
         numeroMesa = 1;
-        fecha = LocalDateTime.now().plusDays(1L);
-        hora = LocalDateTime.now().withHour(12);
+        fechaYHora = LocalDateTime.now().plusDays(1L).withHour(12);
         nombreCompletoCliente = "Cliente Test";
         telefonoCliente = "1234567890";
-        idMascota = "1234";
+        idMascota = 1234L;
     }
 
     public ReservaTestDataBuilder conNumeroMesa(Integer numeroMesa) {
@@ -29,13 +27,8 @@ public class ReservaTestDataBuilder {
         return this;
     }
 
-    public ReservaTestDataBuilder conFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-        return this;
-    }
-
-    public ReservaTestDataBuilder conHora(LocalDateTime hora) {
-        this.hora = hora;
+    public ReservaTestDataBuilder conFechaYHora(LocalDateTime fechaYHora) {
+        this.fechaYHora = fechaYHora;
         return this;
     }
 
@@ -49,12 +42,12 @@ public class ReservaTestDataBuilder {
         return this;
     }
 
-    public ReservaTestDataBuilder conIdMascota(String idMascota) {
+    public ReservaTestDataBuilder conIdMascota(Long idMascota) {
         this.idMascota = idMascota;
         return this;
     }
 
     public Reserva build() {
-        return new Reserva(id, numeroMesa, fecha, hora, nombreCompletoCliente, telefonoCliente, idMascota);
+        return new Reserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, idMascota);
     }
 }

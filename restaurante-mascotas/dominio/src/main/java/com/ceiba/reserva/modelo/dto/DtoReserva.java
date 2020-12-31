@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class DtoReserva {
-    private String id;
+    private Long id;
     private Integer numeroMesa;
-    private LocalDateTime fecha;
-    private LocalDateTime hora;
+    private LocalDateTime fechayHora;
     private String nombreCompletoCliente;
     private String telefonoCliente;
-    private String idMascota;
+    private Long idMascota;
+    private String codigoGenerado;
 }

@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ComandoReserva {
 
-    private String id;
+    private Long id;
     private Integer numeroMesa;
-    private LocalDateTime fecha;
-    private LocalDateTime hora;
+    private LocalDateTime fechaYHora;
     private String nombreCompletoCliente;
     private String telefonoCliente;
-    private String idMascota;
+    private Long idMascota;
+    private String codigoGenerado;
 
 }

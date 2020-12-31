@@ -35,7 +35,7 @@ public class ConsultaControladorReservaTest {
     }
 
     @Test
-    public void existe() throws Exception {
+    public void mostrar() throws Exception {
         // arrange
         Long id = 2L;
 
@@ -56,7 +56,7 @@ public class ConsultaControladorReservaTest {
         mockMvc.perform(
                 get("/reservas/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk())
-         .andExpect(content().string(""));
+        ).andExpect(status().isNotFound())
+         .andExpect(jsonPath("$.mensaje", is("La reserva con id 9999 no existe en el sistema")));
     }
 }

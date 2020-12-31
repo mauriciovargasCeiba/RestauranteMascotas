@@ -5,24 +5,24 @@ import com.ceiba.manejador.ManejadorComandoRespuesta;
 import com.ceiba.reserva.comando.ComandoReserva;
 import com.ceiba.reserva.comando.fabrica.FabricaReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
-import com.ceiba.reserva.servicio.ServicioCrearReserva;
+import com.ceiba.reserva.servicio.ServicioReservar;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ManejadorCrearReserva implements ManejadorComandoRespuesta<ComandoReserva, ComandoRespuesta<Long>> {
+public class ManejadorReservar implements ManejadorComandoRespuesta<ComandoReserva, ComandoRespuesta<Long>> {
 
     private final FabricaReserva fabricaReserva;
-    private final ServicioCrearReserva servicioCrearReserva;
+    private final ServicioReservar servicioReservar;
 
-    public ManejadorCrearReserva(FabricaReserva fabricaReserva, ServicioCrearReserva servicioCrearReserva) {
+    public ManejadorReservar(FabricaReserva fabricaReserva, ServicioReservar servicioReservar) {
         this.fabricaReserva = fabricaReserva;
-        this.servicioCrearReserva = servicioCrearReserva;
+        this.servicioReservar = servicioReservar;
     }
 
     @Override
     public ComandoRespuesta<Long> ejecutar(ComandoReserva comandoReserva) {
         Reserva reserva = fabricaReserva.crear(comandoReserva);
-        return new ComandoRespuesta<>(servicioCrearReserva.ejecutar(reserva));
+        return new ComandoRespuesta<>(servicioReservar.ejecutar(reserva));
     }
 
 }

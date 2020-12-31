@@ -12,9 +12,16 @@ public interface DaoReserva {
     List<DtoReserva> listar();
 
     /**
+     * Permite mostrar una reserva con un id
+     * @param id
+     * @return una reserva con id
+     */
+    DtoReserva mostrar(String id);
+
+    /**
      * Permite validar si existe una reserva con un id
      * @param id
      * @return si existe o no
      */
-    DtoReserva existe(String id);
+    Boolean existe(String id);
 }

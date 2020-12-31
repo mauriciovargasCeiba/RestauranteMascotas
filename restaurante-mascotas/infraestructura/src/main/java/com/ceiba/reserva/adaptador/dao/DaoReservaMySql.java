@@ -17,6 +17,9 @@ public class DaoReservaMySql implements DaoReserva {
     @SqlStatement(namespace="reserva", value="listar")
     private static String sqlListar;
 
+    @SqlStatement(namespace="reserva", value="mostrar")
+    private static String sqlMostrar;
+
     @SqlStatement(namespace="reserva", value="existe")
     private static String sqlExiste;
 
@@ -30,13 +33,19 @@ public class DaoReservaMySql implements DaoReserva {
     }
 
     @Override
-    public DtoReserva existe(String id) {
+    public DtoReserva mostrar(String id) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("id", id);
 
-        // ¿Arrojar excepción, retornar objeto vacío o retornar nulo?... 404
-        List<DtoReserva> dtoReservas = customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlExiste, paramSource, new MapeoReserva());
-        return !dtoReservas.isEmpty() ? dtoReservas.get(0) : null;
+        return customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlMostrar, paramSource, new MapeoReserva()).get(0);
+    }
+
+    @Override
+    public Boolean existe(String id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", id);
+
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, Boolean.class);
     }
 
 }

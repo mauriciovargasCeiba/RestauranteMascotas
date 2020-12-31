@@ -2,14 +2,14 @@ package com.ceiba.reserva.servicio;
 
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 
-public class ServicioEliminarReserva {
+public class ServicioCancelarReserva {
     private final RepositorioReserva repositorioReserva;
 
-    public ServicioEliminarReserva(RepositorioReserva repositorioReserva) {
+    public ServicioCancelarReserva(RepositorioReserva repositorioReserva) {
         this.repositorioReserva = repositorioReserva;
     }
 
-    public void ejecutar(String id) {
+    public void ejecutar(Long id) {
         this.repositorioReserva.eliminar(id);
     }
 }

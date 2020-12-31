@@ -1,2 +1,2 @@
-select id, numero_mesa, fecha, hora, nombre_completo, telefono, id_mascota
+select id, numero_mesa, fecha_hora, nombre_completo, telefono, id_mascota, codigo_generado
 from reserva

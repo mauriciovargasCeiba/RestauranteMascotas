@@ -1,50 +1,82 @@
 package com.ceiba.reserva.modelo.entidad;
 
+import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
+import com.ceiba.reserva.servicio.ServicioGenerarCodigoReserva;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
+import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.*;
+import static com.ceiba.reserva.CondicionDescuentoReserva.*;
 
 @Getter
 public class Reserva {
 
     private static final String SE_DEBE_INGRESAR_EL_NUMERO_DE_MESA = "Se debe ingresar el número de mesa";
-    private static final String SE_DEBE_INGRESAR_LA_FECHA_DE_LA_RESERVA = "Se debe ingresar la fecha de la reserva";
-    private static final String SE_DEBE_INGRESAR_LA_HORA_DE_LA_RESERVA = "Se debe ingresar la hora de la reserva";
-    private static final String DEBE_INGRESAR_EL_NOMBRE_COMPLETO_DEL_CLIENTE = "Debe ingresar el nombre completo del cliente";
-    public static final String SE_DEBE_INGRESAR_UN_NUMERO_DE_TELEFONO_DEL_CLIENTE = "Se debe ingresar un número de teléfono del cliente";
+    private static final String SE_DEBE_INGRESAR_LA_FECHA_Y_HORA_DE_LA_RESERVA = "Se debe ingresar la fecha y hora de la reserva";
+    private static final String SE_DEBE_INGRESAR_EL_NOMBRE_COMPLETO_DEL_CLIENTE = "Se debe ingresar el nombre completo del cliente";
+    private static final String SE_DEBE_INGRESAR_UN_NUMERO_DE_TELEFONO_DEL_CLIENTE = "Se debe ingresar un número de teléfono del cliente";
+    private static final String LA_FECHA_Y_HORA_DE_RESERVA_DEBEN_SER_MAYORES_A_LA_FECHA_Y_HORA_ACTUALES = "La fecha y hora de reserva deben ser mayores a la fecha y hora actuales";
 
-    private String id;
+    private Long id;
     private Integer numeroMesa;
-    private LocalDateTime fecha;
-    private LocalDateTime hora;
+    private LocalDateTime fechaYHora;
     private String nombreCompletoCliente;
     private String telefonoCliente;
-    private String idMascota;
+    private Long idMascota;
+    private String codigoGenerado;
 
     public Reserva(
-            String id,
+            Long id,
             Integer numeroMesa,
-            LocalDateTime fecha,
-            LocalDateTime hora,
+            LocalDateTime fechaYHora,
             String nombreCompletoCliente,
             String telefonoCliente,
-            String idMascota
+            Long idMascota
     ) {
         validarObligatorio(numeroMesa, SE_DEBE_INGRESAR_EL_NUMERO_DE_MESA);
-        validarObligatorio(fecha, SE_DEBE_INGRESAR_LA_FECHA_DE_LA_RESERVA);
-        validarObligatorio(hora, SE_DEBE_INGRESAR_LA_HORA_DE_LA_RESERVA);
-        validarObligatorio(nombreCompletoCliente, DEBE_INGRESAR_EL_NOMBRE_COMPLETO_DEL_CLIENTE);
+        validarObligatorio(fechaYHora, SE_DEBE_INGRESAR_LA_FECHA_Y_HORA_DE_LA_RESERVA);
+        validarFechaYHoraDespuesDeAhora(fechaYHora);
+        validarObligatorio(nombreCompletoCliente, SE_DEBE_INGRESAR_EL_NOMBRE_COMPLETO_DEL_CLIENTE);
         validarObligatorio(telefonoCliente, SE_DEBE_INGRESAR_UN_NUMERO_DE_TELEFONO_DEL_CLIENTE);
 
         this.id = id;
         this.numeroMesa = numeroMesa;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaYHora = fechaYHora;
         this.nombreCompletoCliente = nombreCompletoCliente;
         this.telefonoCliente = telefonoCliente;
-        this.idMascota = idMascota == null ? "0000" : idMascota;
+        this.idMascota = idMascota;
+        this.codigoGenerado = ServicioGenerarCodigoReserva.ejecutar(this);
+    }
+
+    private void validarFechaYHoraDespuesDeAhora(LocalDateTime fechaYHora) {
+        LocalDateTime ahora = LocalDateTime.now();
+        boolean fechaYHoraSonAntesQueAhora = fechaYHora.isBefore(ahora);
+        if (fechaYHoraSonAntesQueAhora) {
+            throw new ExcepcionFechaYHoraInvalida(LA_FECHA_Y_HORA_DE_RESERVA_DEBEN_SER_MAYORES_A_LA_FECHA_Y_HORA_ACTUALES);
+        }
+    }
+
+    public boolean incluyeMascota() {
+        return idMascota != null;
+    }
+
+    public boolean incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes() {
+        return !incluyeMascota();
+    }
+
+    public boolean esEntreDosPmYCuatroPmYNoEsDomingo() {
+        int hora = fechaYHora.getHour();
+        int diaSemana = fechaYHora.getDayOfWeek().getValue();
+        return (hora >= HORA_DOS_DE_LA_TARDE.obtenerValorNumerico()
+                && hora <= HORA_CUATRO_DE_LA_TARDE.obtenerValorNumerico()) &&
+                diaSemana != DIA_SEMANA_DOMINGO.obtenerValorNumerico();
+    }
+
+    public boolean esDiaPrimeroODiaQuinceDelMes() {
+        int diaMes = fechaYHora.getDayOfMonth();
+        return diaMes == DIA_MES_PRIMERO.obtenerValorNumerico() || diaMes == DIA_MES_QUINCE.obtenerValorNumerico();
     }
 
 }

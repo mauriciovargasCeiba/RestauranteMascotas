@@ -11,8 +11,7 @@ public class FabricaReserva {
         return new Reserva(
                 comandoReserva.getId(),
                 comandoReserva.getNumeroMesa(),
-                comandoReserva.getFecha(),
-                comandoReserva.getHora(),
+                comandoReserva.getFechaYHora(),
                 comandoReserva.getNombreCompletoCliente(),
                 comandoReserva.getTelefonoCliente(),
                 comandoReserva.getIdMascota()

@@ -5,17 +5,17 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-public class ServicioEliminarReservaTest {
+public class ServicioCancelarReservaTest {
 
     @Test
     public void ejecutar() {
         // arrange
-        String id = "0001_1234";
+        Long id = 1L;
         RepositorioReserva repositorioReserva = mock(RepositorioReserva.class);
-        ServicioEliminarReserva servicioEliminarReserva = new ServicioEliminarReserva(repositorioReserva);
+        ServicioCancelarReserva servicioCancelarReserva = new ServicioCancelarReserva(repositorioReserva);
 
         // act
-        servicioEliminarReserva.ejecutar(id);
+        servicioCancelarReserva.ejecutar(id);
 
         // assert
         verify(repositorioReserva, times(1)).eliminar(id);
