@@ -5,7 +5,7 @@ import com.ceiba.reserva.modelo.entidad.Reserva;
 import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.*;
 import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
 
-public class ServicioGenerarCodigoReserva {
+public final class ServicioGenerarCodigoReserva {
 
     private ServicioGenerarCodigoReserva() {}
 
