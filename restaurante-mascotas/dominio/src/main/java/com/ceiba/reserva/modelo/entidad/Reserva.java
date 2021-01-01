@@ -1,7 +1,6 @@
 package com.ceiba.reserva.modelo.entidad;
 
 import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
-import com.ceiba.reserva.servicio.ServicioExtraerHoraReserva;
 import com.ceiba.reserva.servicio.ServicioGenerarCodigoReserva;
 import lombok.Getter;
 
@@ -69,7 +68,7 @@ public class Reserva {
     }
 
     public Boolean incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes() {
-        return mascotaHaVenidoMasDeTresVecesEnUnMes;
+        return incluyeMascota() && mascotaHaVenidoMasDeTresVecesEnUnMes;
     }
 
     public void confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(Boolean mascotaHaVenidoMasDeTresVecesEnUnMes) {
@@ -77,7 +76,7 @@ public class Reserva {
     }
 
     public boolean esEntreDosPmYCuatroPmYNoEsDomingo() {
-        LocalTime hora = ServicioExtraerHoraReserva.ejecutar(this);
+        LocalTime hora = fechaYHora.toLocalTime();
         int diaSemana = fechaYHora.getDayOfWeek().getValue();
         return (hora.isAfter(HORA_DOS_DE_LA_TARDE.obtenerHora())
                 && hora.isBefore(HORA_CUATRO_DE_LA_TARDE.obtenerHora())) &&

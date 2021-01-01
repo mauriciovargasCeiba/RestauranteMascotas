@@ -7,6 +7,8 @@ import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
 
 public final class ServicioGenerarCodigoReserva {
 
+    private static final String CODIGO_SIN_MASCOTA = "0000";
+
     private ServicioGenerarCodigoReserva() {}
 
     public static String ejecutar(Reserva reserva) {
@@ -34,11 +36,16 @@ public final class ServicioGenerarCodigoReserva {
     }
 
     private static String generarCodigoCompleto(Reserva reserva, String codigoDescuento) {
+        String codigoMascota = formatearCodigoMascota(reserva);
         return new StringBuilder()
                 .append(codigoDescuento)
                 .append("_")
-                .append(reserva.getIdMascota())
+                .append(codigoMascota)
                 .toString().toUpperCase();
+    }
+
+    private static String formatearCodigoMascota(Reserva reserva) {
+        return reserva.incluyeMascota() ? reserva.getIdMascota().toString() : CODIGO_SIN_MASCOTA;
     }
 
     private static String formatearCodigoDescuento(String codigoDescuento) {

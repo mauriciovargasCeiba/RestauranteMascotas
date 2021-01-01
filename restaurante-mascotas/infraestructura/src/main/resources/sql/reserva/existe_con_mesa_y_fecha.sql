@@ -1,0 +1,1 @@
+select count(1) from reserva where numero_mesa = :numeroMesa AND fecha_hora = :fechaYHora;

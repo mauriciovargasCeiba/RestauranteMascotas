@@ -68,4 +68,13 @@ public class ServicioGenerarCodigoReservaTest {
         // act - assert
         Assert.assertEquals("003_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
+
+    @Test
+    public void ejecutarSinMascota() {
+        // arrange
+        Reserva reserva = new ReservaTestDataBuilder().conIdMascota(null).build();
+
+        // act - assert
+        Assert.assertEquals("000_0000", ServicioGenerarCodigoReserva.ejecutar(reserva));
+    }
 }

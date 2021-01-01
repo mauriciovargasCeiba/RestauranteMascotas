@@ -2,6 +2,7 @@ package com.ceiba.reserva.error;
 
 import com.ceiba.infraestructura.error.Error;
 import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
+import com.ceiba.reserva.excepcion.ExcepcionReservaConMesaYFechaYaExiste;
 import com.ceiba.reserva.excepcion.ExcepcionReservaInexistente;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class ManejadorErrorReserva extends ResponseEntityExceptionHandler {
     public ManejadorErrorReserva() {
         CODIGOS_ESTADO.put(ExcepcionFechaYHoraInvalida.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionReservaInexistente.class.getSimpleName(), HttpStatus.NOT_FOUND.value());
+        CODIGOS_ESTADO.put(ExcepcionReservaConMesaYFechaYaExiste.class.getSimpleName(), HttpStatus.CONFLICT.value());
     }
 
     @ExceptionHandler(Exception.class)

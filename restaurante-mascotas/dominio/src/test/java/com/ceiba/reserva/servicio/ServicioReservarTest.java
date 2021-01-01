@@ -3,6 +3,7 @@ package com.ceiba.reserva.servicio;
 import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
+import com.ceiba.reserva.excepcion.ExcepcionReservaConMesaYFechaYaExiste;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
@@ -108,10 +109,14 @@ public class ServicioReservarTest {
     @Test
     public void ejecutarSinMascota() {
         // arrange
-        Reserva reservaSinMascota = new ReservaTestDataBuilder().conIdMascota(null).build();
+        Reserva reserva = new ReservaTestDataBuilder().conIdMascota(null).build();
 
-        // act - assert
-        Assert.assertEquals(1L, servicioReservar.ejecutar(reservaSinMascota).longValue());
+        // act
+        servicioReservar.ejecutar(reserva);
+
+        // assert
+        Assert.assertFalse(reserva.incluyeMascota());
+        Assert.assertFalse(reserva.incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes());
     }
 
     @Test
@@ -135,8 +140,24 @@ public class ServicioReservarTest {
         // act
         servicioReservar.ejecutar(reserva);
 
-        // act
+        // assert
         Assert.assertFalse(reserva.incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes());
+    }
+
+
+    @Test
+    public void ejecutarConMesaYFechaYHoraExistente() {
+        // arrange
+        LocalDateTime fechaYHora = LocalDateTime.of(2120,12,31,12,0,0);
+        Reserva reservaConMesaYFechaYHoraExistente = new ReservaTestDataBuilder().conFechaYHora(fechaYHora).build();
+        when(daoReserva.existeConMesaYFechaYHora(anyInt(), any())).thenReturn(true);
+
+        // act - assert
+        BasePrueba.assertThrows(
+                () -> servicioReservar.ejecutar(reservaConMesaYFechaYHoraExistente),
+                ExcepcionReservaConMesaYFechaYaExiste.class,
+                "Ya existe una reserva de la mesa 1 para el día 2120-12-31 a las 12:00"
+        );
     }
 
 }

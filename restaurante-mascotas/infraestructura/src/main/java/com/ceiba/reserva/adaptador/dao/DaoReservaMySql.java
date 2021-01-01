@@ -24,6 +24,9 @@ public class DaoReservaMySql implements DaoReserva {
     @SqlStatement(namespace="reserva", value="existe")
     private static String sqlExiste;
 
+    @SqlStatement(namespace="reserva", value="existe_con_mesa_y_fecha")
+    private static String sqlExisteConMesaYFechaYHora;
+
     @SqlStatement(namespace="reserva", value="contar_con_fecha_y_mascota")
     private static String sqlContarConFechaYMascota;
 
@@ -41,7 +44,6 @@ public class DaoReservaMySql implements DaoReserva {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("codigoGenerado", codigoGenerado);
 
-        // Para hacer: prevenir NPE
         return customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlMostrar, paramSource, new MapeoReserva()).get(0);
     }
 
@@ -51,6 +53,15 @@ public class DaoReservaMySql implements DaoReserva {
         paramSource.addValue("codigoGenerado", codigoGenerado);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, Boolean.class);
+    }
+
+    @Override
+    public Boolean existeConMesaYFechaYHora(Integer numeroMesa, LocalDateTime fechaYHora) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("numeroMesa", numeroMesa);
+        paramSource.addValue("fechaYHora", fechaYHora);
+
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExisteConMesaYFechaYHora,paramSource, Boolean.class);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 
 import static com.ceiba.reserva.CondicionFechaDescuentoReserva.*;
+import static com.ceiba.reserva.ValidadorExistenciaReserva.*;
 
 public class ServicioReservar {
 
@@ -17,6 +18,8 @@ public class ServicioReservar {
     }
 
     public Long ejecutar(Reserva reserva) {
+        validarExistenciaReservaConMesaYFechaYHora(reserva, daoReserva);
+
         Long numeroReservasEnMismoMesParaMismaMascota =
                 daoReserva.contarConFechaYMascota(reserva.getFechaYHora(), reserva.getIdMascota());
         Boolean mascotaSiHaVenidoMasDeTresVecesEnMes =

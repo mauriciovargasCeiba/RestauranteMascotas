@@ -14,7 +14,7 @@ public class ServicioMostrarReserva {
     }
 
     public DtoReserva ejecutar(String codigoGenerado) {
-        validarExistenciaReserva(codigoGenerado, daoReserva);
+        validarExistenciaReservaConCodigo(codigoGenerado, daoReserva);
         return daoReserva.mostrar(codigoGenerado);
     }
 

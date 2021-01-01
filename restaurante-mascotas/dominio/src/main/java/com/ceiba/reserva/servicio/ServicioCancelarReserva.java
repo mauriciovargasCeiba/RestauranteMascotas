@@ -16,7 +16,7 @@ public class ServicioCancelarReserva {
     }
 
     public void ejecutar(String codigoGenerado) {
-        validarExistenciaReserva(codigoGenerado, daoReserva);
+        validarExistenciaReservaConCodigo(codigoGenerado, daoReserva);
         this.repositorioReserva.cancelar(codigoGenerado);
     }
 }
