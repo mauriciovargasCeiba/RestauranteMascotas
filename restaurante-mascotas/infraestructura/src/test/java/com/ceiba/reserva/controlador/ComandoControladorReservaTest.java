@@ -40,7 +40,7 @@ public class ComandoControladorReservaTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(reserva))
         ).andExpect(status().isOk())
-        .andExpect(content().json("{\"valor\":2}"));
+        .andExpect(content().json("{\"valor\":3}"));
     }
 
     @Test

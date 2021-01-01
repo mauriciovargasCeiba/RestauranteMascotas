@@ -12,6 +12,7 @@ public class ReservaTestDataBuilder {
     private String nombreCompletoCliente;
     private String telefonoCliente;
     private Long idMascota;
+    private Boolean mascotaHaVenidoMasDeTresVecesEnUnMes;
 
     public ReservaTestDataBuilder() {
         id = 1L;
@@ -20,6 +21,8 @@ public class ReservaTestDataBuilder {
         nombreCompletoCliente = "Cliente Test";
         telefonoCliente = "1234567890";
         idMascota = 1234L;
+        mascotaHaVenidoMasDeTresVecesEnUnMes = false;
+
     }
 
     public ReservaTestDataBuilder conNumeroMesa(Integer numeroMesa) {
@@ -47,7 +50,14 @@ public class ReservaTestDataBuilder {
         return this;
     }
 
+    public ReservaTestDataBuilder confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(Boolean mascotaHaVenidoMasDeTresVecesEnUnMes) {
+        this.mascotaHaVenidoMasDeTresVecesEnUnMes = mascotaHaVenidoMasDeTresVecesEnUnMes;
+        return this;
+    }
+
     public Reserva build() {
-        return new Reserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, idMascota);
+        Reserva reserva = new Reserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, idMascota);
+        reserva.confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(mascotaHaVenidoMasDeTresVecesEnUnMes);
+        return reserva;
     }
 }

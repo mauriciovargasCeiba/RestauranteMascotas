@@ -1,0 +1,1 @@
+select count(*) from reserva where id_mascota=:idMascota and month(fecha_hora)=:mes and year(fecha_hora)=:anyo;

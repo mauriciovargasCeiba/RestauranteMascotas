@@ -1,12 +1,15 @@
 package com.ceiba.reserva.adaptador.dao;
 
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
+import com.ceiba.infraestructura.jdbc.MapperResult;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
+import java.sql.Types;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -22,6 +25,9 @@ public class DaoReservaMySql implements DaoReserva {
 
     @SqlStatement(namespace="reserva", value="existe")
     private static String sqlExiste;
+
+    @SqlStatement(namespace="reserva", value="contar_con_fecha_y_mascota")
+    private static String sqlContarConFechaYMascota;
 
     public DaoReservaMySql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
@@ -47,6 +53,16 @@ public class DaoReservaMySql implements DaoReserva {
         paramSource.addValue("codigoGenerado", codigoGenerado);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, Boolean.class);
+    }
+
+    @Override
+    public Long contarConFechaYMascota(LocalDateTime fechaYHora, Long idMascota) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("mes", fechaYHora.getMonthValue());
+        paramSource.addValue("anyo", fechaYHora.getYear());
+        paramSource.addValue("idMascota", idMascota);
+
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlContarConFechaYMascota,paramSource, Long.class);
     }
 
 }

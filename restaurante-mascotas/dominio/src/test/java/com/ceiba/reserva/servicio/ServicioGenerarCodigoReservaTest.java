@@ -10,6 +10,15 @@ import java.time.LocalDateTime;
 public class ServicioGenerarCodigoReservaTest {
 
     @Test
+    public void ejecutarConMascotaQueHaVenidoMasDeTresVecesElMismoMes() {
+        // arrange
+        Reserva reserva = new ReservaTestDataBuilder().confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(true).build();
+
+        // act - assert
+        Assert.assertEquals("001_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+    }
+
+    @Test
     public void ejecutarConReservaEntreDosPmYCuatroPmYNoEsDomingo() {
         // arrange
         LocalDateTime entreDosPmYCuatroPmYNoEsDomingo = LocalDateTime.of(2120, 12, 31, 15, 0,0);

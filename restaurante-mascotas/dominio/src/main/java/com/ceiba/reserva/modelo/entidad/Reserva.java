@@ -1,5 +1,6 @@
 package com.ceiba.reserva.modelo.entidad;
 
+import com.ceiba.reserva.NumeroReferenciaDescuentoReserva;
 import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
 import com.ceiba.reserva.servicio.ServicioExtraerHoraReserva;
 import com.ceiba.reserva.servicio.ServicioGenerarCodigoReserva;
@@ -12,6 +13,7 @@ import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 import static com.ceiba.reserva.CondicionFechaDescuentoReserva.*;
 import static com.ceiba.reserva.CondicionHoraDescuentoReserva.HORA_CUATRO_DE_LA_TARDE;
 import static com.ceiba.reserva.CondicionHoraDescuentoReserva.HORA_DOS_DE_LA_TARDE;
+import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
 
 @Getter
 public class Reserva {
@@ -28,6 +30,7 @@ public class Reserva {
     private String nombreCompletoCliente;
     private String telefonoCliente;
     private Long idMascota;
+    private Boolean mascotaHaVenidoMasDeTresVecesEnUnMes;
     private String codigoGenerado;
 
     public Reserva(
@@ -50,7 +53,8 @@ public class Reserva {
         this.nombreCompletoCliente = nombreCompletoCliente;
         this.telefonoCliente = telefonoCliente;
         this.idMascota = idMascota;
-        this.codigoGenerado = ServicioGenerarCodigoReserva.ejecutar(this);
+        this.mascotaHaVenidoMasDeTresVecesEnUnMes = false;
+        this.codigoGenerado = String.valueOf(SIN_DESCUENTO.obtenerNumeroReferencia()) + idMascota;
     }
 
     private void validarFechaYHoraDespuesDeAhora(LocalDateTime fechaYHora) {
@@ -65,8 +69,12 @@ public class Reserva {
         return idMascota != null;
     }
 
-    public boolean incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes() {
-        return !incluyeMascota();
+    public Boolean incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes() {
+        return mascotaHaVenidoMasDeTresVecesEnUnMes;
+    }
+
+    public void confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(Boolean mascotaHaVenidoMasDeTresVecesEnUnMes) {
+        this.mascotaHaVenidoMasDeTresVecesEnUnMes = mascotaHaVenidoMasDeTresVecesEnUnMes;
     }
 
     public boolean esEntreDosPmYCuatroPmYNoEsDomingo() {
@@ -80,6 +88,10 @@ public class Reserva {
     public boolean esDiaPrimeroODiaQuinceDelMes() {
         int diaMes = fechaYHora.getDayOfMonth();
         return diaMes == DIA_MES_PRIMERO.obtenerValorNumerico() || diaMes == DIA_MES_QUINCE.obtenerValorNumerico();
+    }
+
+    public void generarCodigo() {
+        this.codigoGenerado = ServicioGenerarCodigoReserva.ejecutar(this);
     }
 
 }

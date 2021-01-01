@@ -4,6 +4,7 @@ import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
 import com.ceiba.reserva.modelo.entidad.Reserva;
+import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
 import org.junit.Assert;
@@ -17,13 +18,16 @@ import static org.mockito.Mockito.*;
 public class ServicioReservarTest {
 
     private ServicioReservar servicioReservar;
+    private RepositorioReserva repositorioReserva;
+    private DaoReserva daoReserva;
 
     @Before
     public void inicializar() {
-        RepositorioReserva repositorioReserva = mock(RepositorioReserva.class);
-        servicioReservar = new ServicioReservar(repositorioReserva);
+        repositorioReserva = mock(RepositorioReserva.class);
+        daoReserva = mock(DaoReserva.class);
+        servicioReservar = new ServicioReservar(repositorioReserva, daoReserva);
+        when(daoReserva.contarConFechaYMascota(any(),anyLong())).thenReturn(0L);
         when(repositorioReserva.reservar(any())).thenReturn(1L);
-
     }
 
     @Test
@@ -108,6 +112,31 @@ public class ServicioReservarTest {
 
         // act - assert
         Assert.assertEquals(1L, servicioReservar.ejecutar(reservaSinMascota).longValue());
+    }
+
+    @Test
+    public void ejecutarConMascotaQueHaVenidoMasDeTresVecesElMismoMes() {
+        // arrange
+        Reserva reserva = new ReservaTestDataBuilder().build();
+        when(daoReserva.contarConFechaYMascota(any(),anyLong())).thenReturn(3L);
+
+        // act
+        servicioReservar.ejecutar(reserva);
+
+        // act
+        Assert.assertTrue(reserva.incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes());
+    }
+
+    @Test
+    public void ejecutarConMascotaQueNoHaVenidoMasDeTresVecesElMismoMes() {
+        // arrange
+        Reserva reserva = new ReservaTestDataBuilder().build();
+
+        // act
+        servicioReservar.ejecutar(reserva);
+
+        // act
+        Assert.assertFalse(reserva.incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes());
     }
 
 }
