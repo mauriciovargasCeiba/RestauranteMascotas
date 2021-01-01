@@ -1,6 +1,5 @@
 package com.ceiba.reserva.modelo.entidad;
 
-import com.ceiba.reserva.NumeroReferenciaDescuentoReserva;
 import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
 import com.ceiba.reserva.servicio.ServicioExtraerHoraReserva;
 import com.ceiba.reserva.servicio.ServicioGenerarCodigoReserva;

@@ -1,14 +1,12 @@
 package com.ceiba.reserva.adaptador.dao;
 
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
-import com.ceiba.infraestructura.jdbc.MapperResult;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
-import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.List;
 
