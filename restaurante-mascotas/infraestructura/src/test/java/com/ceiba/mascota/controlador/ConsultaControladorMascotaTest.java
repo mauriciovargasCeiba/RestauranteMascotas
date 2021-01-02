@@ -31,6 +31,6 @@ public class ConsultaControladorMascotaTest {
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)))
-        .andExpect(jsonPath("$[0].nombre", is("Mascota Test")));
+        .andExpect(jsonPath("$[0].nombre", is("Mascota test")));
     }
 }

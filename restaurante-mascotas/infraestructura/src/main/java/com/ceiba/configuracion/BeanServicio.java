@@ -20,8 +20,8 @@ import org.springframework.web.client.RestTemplate;
 public class BeanServicio {
 
     @Bean
-    public ServicioReservar servicioReservar(RepositorioReserva repositorioReserva, DaoReserva daoReserva) {
-        return new ServicioReservar(repositorioReserva, daoReserva);
+    public ServicioReservar servicioReservar(RepositorioReserva repositorioReserva, DaoReserva daoReserva, DaoMascota daoMascota) {
+        return new ServicioReservar(repositorioReserva, daoReserva, daoMascota);
     }
 
     @Bean

@@ -40,13 +40,13 @@ public class ComandoControladorMascotaTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoMascota))
         ).andExpect(status().isOk())
-        .andExpect(content().json("{\"valor\":2}"));
+        .andExpect(content().json("{\"valor\":1235}"));
     }
 
     @Test
     public void eliminar() throws Exception {
         // arrange
-        Long id = 1L;
+        Long id = 1235L;
 
         // act - assert
         mockMvc.perform(
