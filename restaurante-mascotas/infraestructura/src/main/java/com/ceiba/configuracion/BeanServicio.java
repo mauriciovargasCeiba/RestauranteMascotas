@@ -1,5 +1,9 @@
 package com.ceiba.configuracion;
 
+import com.ceiba.mascota.puerto.dao.DaoMascota;
+import com.ceiba.mascota.puerto.repositorio.RepositorioMascota;
+import com.ceiba.mascota.servicio.ServicioEliminarMascota;
+import com.ceiba.mascota.servicio.ServicioRegistrarMascota;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.ServicioReservar;
@@ -28,6 +32,16 @@ public class BeanServicio {
     @Bean
     public ServicioMostrarReserva servicioMostrarReserva(DaoReserva daoReserva) {
         return new ServicioMostrarReserva(daoReserva);
+    }
+
+    @Bean
+    public ServicioRegistrarMascota servicioRegistrarMascota(RepositorioMascota repositorioMascota) {
+        return new ServicioRegistrarMascota(repositorioMascota);
+    }
+
+    @Bean
+    public ServicioEliminarMascota servicioEliminarMascota(RepositorioMascota repositorioMascota, DaoMascota daoMascota) {
+        return new ServicioEliminarMascota(repositorioMascota, daoMascota);
     }
 
     @Bean

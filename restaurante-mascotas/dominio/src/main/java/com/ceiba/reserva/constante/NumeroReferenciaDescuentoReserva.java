@@ -1,4 +1,4 @@
-package com.ceiba.reserva;
+package com.ceiba.reserva.constante;
 
 public enum NumeroReferenciaDescuentoReserva {
     SIN_DESCUENTO(0),

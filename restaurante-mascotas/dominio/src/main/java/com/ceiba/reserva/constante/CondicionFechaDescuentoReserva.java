@@ -1,4 +1,4 @@
-package com.ceiba.reserva;
+package com.ceiba.reserva.constante;
 
 public enum CondicionFechaDescuentoReserva {
     DIA_SEMANA_DOMINGO(7),

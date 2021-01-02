@@ -3,7 +3,7 @@ package com.ceiba.reserva.servicio;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 
-import static com.ceiba.reserva.ValidadorExistenciaReserva.*;
+import static com.ceiba.reserva.validador.ValidadorExistenciaReserva.*;
 
 public class ServicioCancelarReserva {
 

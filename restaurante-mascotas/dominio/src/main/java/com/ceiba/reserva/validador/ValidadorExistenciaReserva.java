@@ -1,4 +1,4 @@
-package com.ceiba.reserva;
+package com.ceiba.reserva.validador;
 
 import com.ceiba.reserva.excepcion.ExcepcionReservaConMesaYFechaYaExiste;
 import com.ceiba.reserva.excepcion.ExcepcionReservaInexistente;

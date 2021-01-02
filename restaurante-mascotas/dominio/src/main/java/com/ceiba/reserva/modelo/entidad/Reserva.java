@@ -1,17 +1,16 @@
 package com.ceiba.reserva.modelo.entidad;
 
-import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
 import com.ceiba.reserva.servicio.ServicioGenerarCodigoReserva;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
-import static com.ceiba.reserva.CondicionFechaDescuentoReserva.*;
-import static com.ceiba.reserva.CondicionHoraDescuentoReserva.HORA_CUATRO_DE_LA_TARDE;
-import static com.ceiba.reserva.CondicionHoraDescuentoReserva.HORA_DOS_DE_LA_TARDE;
-import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
+import static com.ceiba.dominio.ValidadorArgumento.*;
+import static com.ceiba.reserva.constante.CondicionFechaDescuentoReserva.*;
+import static com.ceiba.reserva.constante.CondicionHoraDescuentoReserva.HORA_CUATRO_DE_LA_TARDE;
+import static com.ceiba.reserva.constante.CondicionHoraDescuentoReserva.HORA_DOS_DE_LA_TARDE;
+import static com.ceiba.reserva.constante.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
 
 @Getter
 public class Reserva {
@@ -21,6 +20,8 @@ public class Reserva {
     private static final String SE_DEBE_INGRESAR_EL_NOMBRE_COMPLETO_DEL_CLIENTE = "Se debe ingresar el nombre completo del cliente";
     private static final String SE_DEBE_INGRESAR_UN_NUMERO_DE_TELEFONO_DEL_CLIENTE = "Se debe ingresar un número de teléfono del cliente";
     private static final String LA_FECHA_Y_HORA_DE_RESERVA_DEBEN_SER_MAYORES_A_LA_FECHA_Y_HORA_ACTUALES = "La fecha y hora de reserva deben ser mayores a la fecha y hora actuales";
+    private static final String FORMATO_TELEFONO = "^(?:\\d[ ]*){7}$|^(?:\\d[ ]*){10}$";
+    private static final String SE_DEBE_INGRESAR_UN_NUMERO_DE_TELEFONO_DE_SIETE_O_DIEZ_DIGITOS = "Se debe ingresar un número de teléfono de 7 ó 10 dígitos";
 
     private Long id;
     private Integer numeroMesa;
@@ -41,9 +42,10 @@ public class Reserva {
     ) {
         validarObligatorio(numeroMesa, SE_DEBE_INGRESAR_EL_NUMERO_DE_MESA);
         validarObligatorio(fechaYHora, SE_DEBE_INGRESAR_LA_FECHA_Y_HORA_DE_LA_RESERVA);
-        validarFechaYHoraDespuesDeAhora(fechaYHora);
+        validarMenor(LocalDateTime.now(), fechaYHora, LA_FECHA_Y_HORA_DE_RESERVA_DEBEN_SER_MAYORES_A_LA_FECHA_Y_HORA_ACTUALES);
         validarObligatorio(nombreCompletoCliente, SE_DEBE_INGRESAR_EL_NOMBRE_COMPLETO_DEL_CLIENTE);
         validarObligatorio(telefonoCliente, SE_DEBE_INGRESAR_UN_NUMERO_DE_TELEFONO_DEL_CLIENTE);
+        validarRegex(telefonoCliente, FORMATO_TELEFONO, SE_DEBE_INGRESAR_UN_NUMERO_DE_TELEFONO_DE_SIETE_O_DIEZ_DIGITOS);
 
         this.id = id;
         this.numeroMesa = numeroMesa;
@@ -53,14 +55,6 @@ public class Reserva {
         this.idMascota = idMascota;
         this.mascotaHaVenidoMasDeTresVecesEnUnMes = false;
         this.codigoGenerado = String.valueOf(SIN_DESCUENTO.obtenerNumeroReferencia()) + idMascota;
-    }
-
-    private void validarFechaYHoraDespuesDeAhora(LocalDateTime fechaYHora) {
-        LocalDateTime ahora = LocalDateTime.now();
-        boolean fechaYHoraSonAntesQueAhora = fechaYHora.isBefore(ahora);
-        if (fechaYHoraSonAntesQueAhora) {
-            throw new ExcepcionFechaYHoraInvalida(LA_FECHA_Y_HORA_DE_RESERVA_DEBEN_SER_MAYORES_A_LA_FECHA_Y_HORA_ACTUALES);
-        }
     }
 
     public boolean incluyeMascota() {

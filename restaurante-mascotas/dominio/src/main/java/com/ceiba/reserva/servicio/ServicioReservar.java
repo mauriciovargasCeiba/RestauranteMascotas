@@ -4,8 +4,8 @@ import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 
-import static com.ceiba.reserva.CondicionFechaDescuentoReserva.*;
-import static com.ceiba.reserva.ValidadorExistenciaReserva.*;
+import static com.ceiba.reserva.constante.CondicionFechaDescuentoReserva.*;
+import static com.ceiba.reserva.validador.ValidadorExistenciaReserva.*;
 
 public class ServicioReservar {
 

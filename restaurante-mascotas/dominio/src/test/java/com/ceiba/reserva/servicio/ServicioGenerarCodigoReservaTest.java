@@ -40,6 +40,16 @@ public class ServicioGenerarCodigoReservaTest {
     }
 
     @Test
+    public void ejecutarConReservaAntesDeDosPm() {
+        // arrange
+        LocalDateTime antesDeDosPmYNoEsDomingo = LocalDateTime.of(2120, 12, 31, 13, 59, 59);
+        Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(antesDeDosPmYNoEsDomingo).build();
+
+        // act - assert
+        Assert.assertEquals("000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+    }
+
+    @Test
     public void ejecutarConReservaDomingo() {
         // arrange
         LocalDateTime domingo = LocalDateTime.of(2119, 12, 31, 15, 0, 0);

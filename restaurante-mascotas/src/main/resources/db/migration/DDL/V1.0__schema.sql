@@ -17,3 +17,11 @@ create table producto (
     precio decimal(7,2) not null,
     primary key (id)
 );
+
+create table mascota (
+    id int not null auto_increment,
+    nombre varchar(100) not null,
+    especie enum('PERRO', 'GATO') not null,
+    edad int not null,
+    primary key (id)
+);

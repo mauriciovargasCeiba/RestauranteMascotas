@@ -1,0 +1,1 @@
+insert into mascota (nombre, especie, edad) values (:nombre, :especie, :edad)

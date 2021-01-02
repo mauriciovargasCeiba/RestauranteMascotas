@@ -2,8 +2,8 @@ package com.ceiba.reserva.servicio;
 
 import com.ceiba.reserva.modelo.entidad.Reserva;
 
-import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.*;
-import static com.ceiba.reserva.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
+import static com.ceiba.reserva.constante.NumeroReferenciaDescuentoReserva.*;
+import static com.ceiba.reserva.constante.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
 
 public final class ServicioGenerarCodigoReserva {
 

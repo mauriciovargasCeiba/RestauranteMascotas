@@ -1,8 +1,8 @@
 package com.ceiba.reserva.servicio;
 
 import com.ceiba.BasePrueba;
+import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
-import com.ceiba.reserva.excepcion.ExcepcionFechaYHoraInvalida;
 import com.ceiba.reserva.excepcion.ExcepcionReservaConMesaYFechaYaExiste;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
@@ -75,7 +75,7 @@ public class ServicioReservarTest {
         // act - assert
         BasePrueba.assertThrows(
                 reservaConFechaYHoraInvalidas::build,
-                ExcepcionFechaYHoraInvalida.class,
+                ExcepcionValorInvalido.class,
                 "La fecha y hora de reserva deben ser mayores a la fecha y hora actuales"
         );
     }
@@ -103,6 +103,19 @@ public class ServicioReservarTest {
                 reservaSinTelefono::build,
                 ExcepcionValorObligatorio.class,
                 "Se debe ingresar un número de teléfono del cliente"
+        );
+    }
+
+    @Test
+    public void ejecutarConTelefonoInvalido() {
+        // arrange
+        ReservaTestDataBuilder reservaConTelefonoInvalido = new ReservaTestDataBuilder().conTelefonoCliente("123");
+
+        // act - assert
+        BasePrueba.assertThrows(
+                reservaConTelefonoInvalido::build,
+                ExcepcionValorInvalido.class,
+                "Se debe ingresar un número de teléfono de 7 ó 10 dígitos"
         );
     }
 
