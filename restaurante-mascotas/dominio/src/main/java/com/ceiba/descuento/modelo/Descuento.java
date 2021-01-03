@@ -5,6 +5,7 @@ import com.ceiba.producto.constante.TipoClienteProducto;
 import com.ceiba.producto.constante.TipoProducto;
 import lombok.Getter;
 
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -17,8 +18,8 @@ public class Descuento {
     public Descuento(NumeroReferenciaDescuento numeroReferenciaDescuento, Double porcentajeDescuento, List<TipoProducto> tiposProducto, List<TipoClienteProducto> tiposClienteProducto) {
         this.numeroReferenciaDescuento = numeroReferenciaDescuento;
         this.porcentajeDescuento = porcentajeDescuento;
-        this.tiposProducto = tiposProducto;
-        this.tiposClienteProducto = tiposClienteProducto;
+        this.tiposProducto = Collections.unmodifiableList(tiposProducto);
+        this.tiposClienteProducto = Collections.unmodifiableList(tiposClienteProducto);
     }
 
     public Double obtenerPorcentaje() {
