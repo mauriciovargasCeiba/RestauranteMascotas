@@ -9,15 +9,11 @@ import com.ceiba.producto.puerto.dao.DaoProducto;
 import com.ceiba.producto.servicio.ServicioListarProductosConDescuento;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
-import com.ceiba.reserva.servicio.ServicioReservar;
 import com.ceiba.reserva.servicio.ServicioCancelarReserva;
 import com.ceiba.reserva.servicio.ServicioMostrarReserva;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import com.ceiba.reserva.servicio.ServicioReservar;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class BeanServicio {
