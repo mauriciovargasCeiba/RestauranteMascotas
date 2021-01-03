@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static com.ceiba.dominio.ValidadorArgumento.*;
-import static com.ceiba.reserva.constante.CondicionFechaDescuentoReserva.*;
-import static com.ceiba.reserva.constante.CondicionHoraDescuentoReserva.HORA_CUATRO_DE_LA_TARDE;
-import static com.ceiba.reserva.constante.CondicionHoraDescuentoReserva.HORA_DOS_DE_LA_TARDE;
-import static com.ceiba.reserva.constante.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
+import static com.ceiba.descuento.constante.FechaDescuento.*;
+import static com.ceiba.descuento.constante.HoraDescuento.HORA_CUATRO_DE_LA_TARDE;
+import static com.ceiba.descuento.constante.HoraDescuento.HORA_DOS_DE_LA_TARDE;
+import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.NUM_REF_SIN_DESCUENTO;
 
 @Getter
 public class Reserva {
@@ -54,7 +54,7 @@ public class Reserva {
         this.telefonoCliente = telefonoCliente;
         this.idMascota = idMascota;
         this.mascotaHaVenidoMasDeTresVecesEnUnMes = false;
-        this.codigoGenerado = String.valueOf(SIN_DESCUENTO.obtenerNumeroReferencia()) + idMascota;
+        this.codigoGenerado = String.valueOf(NUM_REF_SIN_DESCUENTO.obtenerValorNumerico()) + idMascota;
     }
 
     public boolean incluyeMascota() {

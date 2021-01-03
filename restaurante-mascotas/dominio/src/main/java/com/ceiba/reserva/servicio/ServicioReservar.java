@@ -6,7 +6,7 @@ import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 
 import static com.ceiba.mascota.validador.ValidadorExistenciaMascota.validarExistenciaMascotaConId;
-import static com.ceiba.reserva.constante.CondicionFechaDescuentoReserva.TRES_VECES_EN_UN_MES;
+import static com.ceiba.descuento.constante.FechaDescuento.TRES_VECES_EN_UN_MES;
 import static com.ceiba.reserva.validador.ValidadorExistenciaReserva.validarExistenciaReservaConMesaYFechaYHora;
 
 public class ServicioReservar {
@@ -23,18 +23,23 @@ public class ServicioReservar {
 
     public Long ejecutar(Reserva reserva) {
         validarExistenciaReservaConMesaYFechaYHora(reserva, daoReserva);
+
         if (reserva.incluyeMascota()) {
             validarExistenciaMascotaConId(reserva.getIdMascota(), daoMascota);
-
-            Long numeroReservasEnMismoMesParaMismaMascota =
-                    daoReserva.contarConFechaYMascota(reserva.getFechaYHora(), reserva.getIdMascota());
-            Boolean mascotaSiHaVenidoMasDeTresVecesEnMes =
-                    numeroReservasEnMismoMesParaMismaMascota == TRES_VECES_EN_UN_MES.obtenerValorNumerico();
-
-            reserva.confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(mascotaSiHaVenidoMasDeTresVecesEnMes);
+            confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(reserva);
         }
+
         reserva.generarCodigo();
         return this.repositorioReserva.reservar(reserva);
+    }
+
+    private void confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(Reserva reserva) {
+        Long numeroReservasEnMismoMesParaMismaMascota =
+                daoReserva.contarConFechaYMascota(reserva.getFechaYHora(), reserva.getIdMascota());
+        Boolean mascotaSiHaVenidoMasDeTresVecesEnMes =
+                numeroReservasEnMismoMesParaMismaMascota == TRES_VECES_EN_UN_MES.obtenerValorNumerico();
+
+        reserva.confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(mascotaSiHaVenidoMasDeTresVecesEnMes);
     }
 
 }

@@ -2,8 +2,8 @@ package com.ceiba.reserva.servicio;
 
 import com.ceiba.reserva.modelo.entidad.Reserva;
 
-import static com.ceiba.reserva.constante.NumeroReferenciaDescuentoReserva.*;
-import static com.ceiba.reserva.constante.NumeroReferenciaDescuentoReserva.SIN_DESCUENTO;
+import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.*;
+import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.NUM_REF_SIN_DESCUENTO;
 
 public final class ServicioGenerarCodigoReserva {
 
@@ -21,16 +21,16 @@ public final class ServicioGenerarCodigoReserva {
         StringBuilder codigoDescuento = new StringBuilder(3);
         if (reserva.incluyeMascota()) {
             if (reserva.incluyeMascotaQueHaVenidoMasDeTresVecesEnUnMes()) {
-                codigoDescuento.append(DESCUENTO_CUARENTA_POR_CIENTO_COMIDA_JUGUETES_MASCOTA.obtenerNumeroReferencia());
+                codigoDescuento.append(NUM_REF_DESCUENTO_CUARENTA_POR_CIENTO_COMIDA_JUGUETES_MASCOTA.obtenerValorNumerico());
             }
             if (reserva.esEntreDosPmYCuatroPmYNoEsDomingo()) {
-                codigoDescuento.append(DESCUENTO_DIEZ_POR_CIENTO_COMIDA_CLIENTE.obtenerNumeroReferencia());
+                codigoDescuento.append(NUM_REF_DESCUENTO_DIEZ_POR_CIENTO_COMIDA_CLIENTE.obtenerValorNumerico());
             }
             if (reserva.esDiaPrimeroODiaQuinceDelMes()) {
-                codigoDescuento.append(DESCUENTO_DOS_JUGUETES_GRATIS_MASCOTA.obtenerNumeroReferencia());
+                codigoDescuento.append(NUM_REF_DESCUENTO_DOS_JUGUETES_GRATIS_MASCOTA.obtenerValorNumerico());
             }
         } else {
-            codigoDescuento.append(SIN_DESCUENTO.obtenerNumeroReferencia());
+            codigoDescuento.append(NUM_REF_SIN_DESCUENTO.obtenerValorNumerico());
         }
         return codigoDescuento.toString();
     }

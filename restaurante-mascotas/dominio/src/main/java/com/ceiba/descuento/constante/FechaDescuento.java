@@ -1,6 +1,6 @@
-package com.ceiba.reserva.constante;
+package com.ceiba.descuento.constante;
 
-public enum CondicionFechaDescuentoReserva {
+public enum FechaDescuento {
     DIA_SEMANA_DOMINGO(7),
     DIA_MES_PRIMERO(1),
     DIA_MES_QUINCE(15),
@@ -12,7 +12,7 @@ public enum CondicionFechaDescuentoReserva {
         return valorNumerico;
     }
 
-    CondicionFechaDescuentoReserva(int valorNumerico) {
+    FechaDescuento(int valorNumerico) {
         this.valorNumerico = valorNumerico;
     }
 }
