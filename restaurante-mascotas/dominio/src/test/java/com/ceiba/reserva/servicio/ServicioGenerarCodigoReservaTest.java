@@ -12,10 +12,11 @@ public class ServicioGenerarCodigoReservaTest {
     @Test
     public void ejecutarConMascotaQueHaVenidoMasDeTresVecesElMismoMes() {
         // arrange
-        Reserva reserva = new ReservaTestDataBuilder().confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(true).build();
+        LocalDateTime fechaYhora = LocalDateTime.of(2120, 12, 31, 0, 0,0);
+        Reserva reserva = new ReservaTestDataBuilder().confirmarMascotaHaVenidoMasDeTresVecesEnUnMes(true).conFechaYHora(fechaYhora).build();
 
         // act - assert
-        Assert.assertEquals("001_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+        Assert.assertEquals("00121203660000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
 
     @Test
@@ -25,7 +26,7 @@ public class ServicioGenerarCodigoReservaTest {
         Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(entreDosPmYCuatroPmYNoEsDomingo).build();
 
         // act - assert
-        Assert.assertEquals("002_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+        Assert.assertEquals("00221203661500_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
 
     }
 
@@ -36,7 +37,7 @@ public class ServicioGenerarCodigoReservaTest {
         Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(despuesDeCuatroPmYNoEsDomingo).build();
 
         // act - assert
-        Assert.assertEquals("000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+        Assert.assertEquals("00021203661600_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
 
     @Test
@@ -46,7 +47,7 @@ public class ServicioGenerarCodigoReservaTest {
         Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(antesDeDosPmYNoEsDomingo).build();
 
         // act - assert
-        Assert.assertEquals("000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+        Assert.assertEquals("00021203661359_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
 
     @Test
@@ -56,7 +57,7 @@ public class ServicioGenerarCodigoReservaTest {
         Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(domingo).build();
 
         // act - assert
-        Assert.assertEquals("000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+        Assert.assertEquals("00021193651500_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
 
     @Test
@@ -66,7 +67,7 @@ public class ServicioGenerarCodigoReservaTest {
         Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(conReservaDiaPrimeroDelMes).build();
 
         // act - assert
-        Assert.assertEquals("003_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+        Assert.assertEquals("00321203360000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
 
     @Test
@@ -76,15 +77,16 @@ public class ServicioGenerarCodigoReservaTest {
         Reserva reserva = new ReservaTestDataBuilder().conFechaYHora(conReservaDiaQuinceDelMes).build();
 
         // act - assert
-        Assert.assertEquals("003_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
+        Assert.assertEquals("00321203500000_1234", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
 
     @Test
     public void ejecutarSinMascota() {
         // arrange
-        Reserva reserva = new ReservaTestDataBuilder().conIdMascota(null).build();
+        LocalDateTime fechaYhora = LocalDateTime.of(2120, 12, 31, 0, 0,0);
+        Reserva reserva = new ReservaTestDataBuilder().conIdMascota(null).conFechaYHora(fechaYhora).build();
 
         // act - assert
-        Assert.assertEquals("000_0000", ServicioGenerarCodigoReserva.ejecutar(reserva));
+        Assert.assertEquals("00021203660000_0000", ServicioGenerarCodigoReserva.ejecutar(reserva));
     }
 }

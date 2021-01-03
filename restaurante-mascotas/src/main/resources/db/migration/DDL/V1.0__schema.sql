@@ -5,7 +5,7 @@ create table reserva (
  nombre_completo varchar(100) not null,
  telefono varchar(10) not null,
  id_mascota int,
- codigo_generado varchar(26),
+ codigo_generado varchar(30),
  primary key (id)
 );
 

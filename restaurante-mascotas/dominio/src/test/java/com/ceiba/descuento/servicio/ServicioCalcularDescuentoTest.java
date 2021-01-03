@@ -1,5 +1,7 @@
 package com.ceiba.descuento.servicio;
 
+import com.ceiba.BasePrueba;
+import com.ceiba.dominio.excepcion.ExcepcionLongitudValor;
 import com.ceiba.producto.modelo.dto.DtoProducto;
 import com.ceiba.producto.servicio.testdatabuilder.DtoProductoTestDataBuilder;
 import org.junit.Assert;
@@ -20,7 +22,7 @@ public class ServicioCalcularDescuentoTest {
     @Test
     public void ejecutarConMascotaQueHaVenidoMasDeTresVecesElMismoMes() {
         // arrange
-        String codigoReserva = "001_1234";
+        String codigoReserva = "00121203660000_1234";
         DtoProducto productoMascota = new DtoProductoTestDataBuilder().conTipoCliente(MASCOTA.obtenerValor()).build();
 
         // act - assert
@@ -30,7 +32,7 @@ public class ServicioCalcularDescuentoTest {
     @Test
     public void ejecutarConReservaEntreDosPmYCuatroPmYNoEsDomingo() {
         // arrange
-        String codigoReserva = "002_1234";
+        String codigoReserva = "00221203661500_1234";
         DtoProducto comidaHumano = new DtoProductoTestDataBuilder().conTipo(COMIDA.obtenerValor()).conTipoCliente(HUMANO.obtenerValor()).build();
 
         // act - assert
@@ -40,7 +42,7 @@ public class ServicioCalcularDescuentoTest {
     @Test
     public void ejecutarConReservaDiaPrimeroDelMes() {
         // arrange
-        String codigoReserva = "003_1234";
+        String codigoReserva = "00321203360000_1234";
         DtoProducto jugueteMascota = new DtoProductoTestDataBuilder().conTipo(JUGUETE.obtenerValor()).conTipoCliente(MASCOTA.obtenerValor()).build();
 
         // act - assert
@@ -50,7 +52,7 @@ public class ServicioCalcularDescuentoTest {
     @Test
     public void ejecutarConDescuentosMascotaParaProductoHumano() {
         // arrange
-        String codigoReserva = "013_1234";
+        String codigoReserva = "01321203360000_1234";
         DtoProducto productoHumano = new DtoProductoTestDataBuilder().conTipo(COMIDA.obtenerValor()).conTipoCliente(HUMANO.obtenerValor()).build();
 
         // act - assert
@@ -60,7 +62,7 @@ public class ServicioCalcularDescuentoTest {
     @Test
     public void ejecutarConDescuentosHumanoParaProductoMascota() {
         // arrange
-        String codigoReserva = "002_1234";
+        String codigoReserva = "00221203661500_1234";
         DtoProducto productoMascota = new DtoProductoTestDataBuilder().conTipo(JUGUETE.obtenerValor()).conTipoCliente(MASCOTA.obtenerValor()).build();
 
         // act - assert
@@ -70,11 +72,25 @@ public class ServicioCalcularDescuentoTest {
     @Test
     public void ejecutarSinDescuento() {
         // arrange
-        String codigoReserva = "000_0000";
+        String codigoReserva = "00021203660000_0000";
         DtoProducto productoSinDescuento = new DtoProductoTestDataBuilder().build();
 
         // act - assert
         Assert.assertEquals(1000.0, servicioCalcularDescuento.ejecutar(codigoReserva, productoSinDescuento).longValue(), 0.01);
+    }
+
+    @Test
+    public void ejecutarConCodigoInvalido() {
+        // arrange
+        String codigoInvalido = "0";
+        DtoProducto productoSinDescuento = new DtoProductoTestDataBuilder().build();
+
+        // act - assert
+        BasePrueba.assertThrows(
+                () -> servicioCalcularDescuento.ejecutar(codigoInvalido, productoSinDescuento),
+                ExcepcionLongitudValor.class,
+                "El código de reserva debe ser de mínimo 10 caracteres"
+        );
     }
 
 }

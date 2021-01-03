@@ -10,20 +10,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.*;
+import static com.ceiba.dominio.ValidadorArgumento.validarLongitudMinima;
 import static java.util.Collections.singletonList;
 
 public class ServicioCalcularDescuento {
 
+    private static final int LONGITUD_MINIMA_CODIGO_RESERVA = 16;
+    private static final String EL_CODIGO_DE_RESERVA_DEBE_SER_DE_MINIMO_DIEZ_CARACTERES = "El código de reserva debe ser de mínimo 10 caracteres";
+
     private static final double CUARENTA_POR_CIENTO = 0.6;
     private static final double DIEZ_POR_CIENTO = 0.9;
     private static final double GRATIS = 0.0;
-    private static final List<Descuento> descuentos = inicializarValoresDescuento();
 
-    public Double ejecutar(String codigoGeneradoReserva, DtoProducto producto) {
-        String fraccionCodigoReserva = extraerFraccionCodigoDescuentos(codigoGeneradoReserva);
-        double porcentajeDescuento = calcularPorcentajeDescuentoParaCodigoYTipoCliente(fraccionCodigoReserva, producto.getTipoCliente());
-        return producto.getPrecio() * porcentajeDescuento;
-    }
+    private static final List<Descuento> descuentos = inicializarValoresDescuento();
 
     private static List<Descuento> inicializarValoresDescuento() {
         List<Descuento> descuentos = new ArrayList<>();
@@ -46,6 +45,14 @@ public class ServicioCalcularDescuento {
                 singletonList(TipoClienteProducto.MASCOTA))
         );
         return descuentos;
+    }
+
+    public Double ejecutar(String codigoGeneradoReserva, DtoProducto producto) {
+        validarLongitudMinima(codigoGeneradoReserva, LONGITUD_MINIMA_CODIGO_RESERVA, EL_CODIGO_DE_RESERVA_DEBE_SER_DE_MINIMO_DIEZ_CARACTERES);
+
+        String fraccionCodigoReserva = extraerFraccionCodigoDescuentos(codigoGeneradoReserva);
+        double porcentajeDescuento = calcularPorcentajeDescuentoParaCodigoYTipoCliente(fraccionCodigoReserva, producto.getTipoCliente());
+        return producto.getPrecio() * porcentajeDescuento;
     }
 
     private String extraerFraccionCodigoDescuentos(String codigoGeneradoReserva) {
