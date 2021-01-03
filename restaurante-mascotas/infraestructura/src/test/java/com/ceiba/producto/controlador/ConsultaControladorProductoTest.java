@@ -29,6 +29,22 @@ public class ConsultaControladorProductoTest {
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(15)))
-        .andExpect(jsonPath("$[0].nombre", is("Papas Fritas")));
+        .andExpect(jsonPath("$[14].nombre", is("Bola con plumas")))
+        .andExpect(jsonPath("$[14].precio", is(15500.0)));
     }
+
+
+    @Test
+    public void listarConDescuento() throws Exception {
+        mockMvc.perform(
+                get("/productos")
+                        .queryParam("codigo_reserva", "00321203511010_1234")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(15)))
+        .andExpect(jsonPath("$[14].nombre", is("Bola con plumas")))
+        .andExpect(jsonPath("$[14].precio", is(0.0)));
+
+    }
+
 }

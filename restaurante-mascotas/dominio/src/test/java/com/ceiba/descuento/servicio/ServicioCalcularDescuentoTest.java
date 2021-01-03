@@ -1,22 +1,32 @@
 package com.ceiba.descuento.servicio;
 
 import com.ceiba.BasePrueba;
-import com.ceiba.dominio.excepcion.ExcepcionLongitudValor;
+import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.producto.modelo.dto.DtoProducto;
 import com.ceiba.producto.servicio.testdatabuilder.DtoProductoTestDataBuilder;
+import com.ceiba.reserva.excepcion.ExcepcionReservaInexistente;
+import com.ceiba.reserva.puerto.dao.DaoReserva;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.ceiba.producto.constante.TipoClienteProducto.*;
-import static com.ceiba.producto.constante.TipoProducto.*;
+import static com.ceiba.producto.constante.TipoClienteProducto.HUMANO;
+import static com.ceiba.producto.constante.TipoClienteProducto.MASCOTA;
+import static com.ceiba.producto.constante.TipoProducto.COMIDA;
+import static com.ceiba.producto.constante.TipoProducto.JUGUETE;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ServicioCalcularDescuentoTest {
     private ServicioCalcularDescuento servicioCalcularDescuento;
+    private DaoReserva daoReserva;
 
     @Before
     public void inicializar() {
-        servicioCalcularDescuento = new ServicioCalcularDescuento();
+        daoReserva = mock(DaoReserva.class);
+        servicioCalcularDescuento = new ServicioCalcularDescuento(daoReserva);
+        when(daoReserva.existe(anyString())).thenReturn(true);
     }
 
     @Test
@@ -82,15 +92,31 @@ public class ServicioCalcularDescuentoTest {
     @Test
     public void ejecutarConCodigoInvalido() {
         // arrange
-        String codigoInvalido = "0";
+        String codigoInvalido = "0x";
         DtoProducto productoSinDescuento = new DtoProductoTestDataBuilder().build();
 
         // act - assert
         BasePrueba.assertThrows(
                 () -> servicioCalcularDescuento.ejecutar(codigoInvalido, productoSinDescuento),
-                ExcepcionLongitudValor.class,
-                "El código de reserva debe ser de mínimo 10 caracteres"
+                ExcepcionValorInvalido.class,
+                "El código ingresado tiene un formato inválido"
         );
+    }
+
+    @Test
+    public void ejecutarConReservaInexistente() {
+        // arrange
+        String codigoInexistente = "00021203660000_0000";
+        when(daoReserva.existe(codigoInexistente)).thenReturn(false);
+        DtoProducto producto = new DtoProductoTestDataBuilder().build();
+
+        // act - assert
+        BasePrueba.assertThrows(
+                () -> servicioCalcularDescuento.ejecutar(codigoInexistente, producto),
+                ExcepcionReservaInexistente.class,
+                "La reserva con código 00021203660000_0000 no existe en el sistema"
+        );
+
     }
 
 }

@@ -1,28 +1,36 @@
 package com.ceiba.descuento.servicio;
 
-import com.ceiba.descuento.modelo.Descuento;
+import com.ceiba.descuento.modelo.objetovalor.Descuento;
 import com.ceiba.producto.constante.TipoClienteProducto;
 import com.ceiba.producto.constante.TipoProducto;
 import com.ceiba.producto.modelo.dto.DtoProducto;
+import com.ceiba.reserva.puerto.dao.DaoReserva;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.*;
-import static com.ceiba.dominio.ValidadorArgumento.validarLongitudMinima;
+import static com.ceiba.dominio.ValidadorArgumento.validarRegex;
+import static com.ceiba.reserva.validador.ValidadorExistenciaReserva.validarExistenciaReservaConCodigo;
 import static java.util.Collections.singletonList;
 
 public class ServicioCalcularDescuento {
 
-    private static final int LONGITUD_MINIMA_CODIGO_RESERVA = 16;
-    private static final String EL_CODIGO_DE_RESERVA_DEBE_SER_DE_MINIMO_DIEZ_CARACTERES = "El código de reserva debe ser de mínimo 10 caracteres";
+    private static final String FORMATO_VALIDO_CODIGO_RESERVA = "^\\d{14}_\\d{1,15}$";
+    private static final String EL_CODIGO_INGRESADO_TIENE_UN_FORMATO_INVALIDO = "El código ingresado tiene un formato inválido";
 
     private static final double CUARENTA_POR_CIENTO = 0.6;
     private static final double DIEZ_POR_CIENTO = 0.9;
     private static final double GRATIS = 0.0;
 
     private static final List<Descuento> descuentos = inicializarValoresDescuento();
+
+    private final DaoReserva daoReserva;
+
+    public ServicioCalcularDescuento(DaoReserva daoReserva) {
+        this.daoReserva = daoReserva;
+    }
 
     private static List<Descuento> inicializarValoresDescuento() {
         List<Descuento> descuentos = new ArrayList<>();
@@ -48,7 +56,8 @@ public class ServicioCalcularDescuento {
     }
 
     public Double ejecutar(String codigoGeneradoReserva, DtoProducto producto) {
-        validarLongitudMinima(codigoGeneradoReserva, LONGITUD_MINIMA_CODIGO_RESERVA, EL_CODIGO_DE_RESERVA_DEBE_SER_DE_MINIMO_DIEZ_CARACTERES);
+        validarRegex(codigoGeneradoReserva, FORMATO_VALIDO_CODIGO_RESERVA, EL_CODIGO_INGRESADO_TIENE_UN_FORMATO_INVALIDO);
+        validarExistenciaReservaConCodigo(codigoGeneradoReserva, daoReserva);
 
         String fraccionCodigoReserva = extraerFraccionCodigoDescuentos(codigoGeneradoReserva);
         double porcentajeDescuento = calcularPorcentajeDescuentoParaCodigoYTipoCliente(fraccionCodigoReserva, producto.getTipoCliente());

@@ -1,4 +1,4 @@
-package com.ceiba.descuento.modelo;
+package com.ceiba.descuento.modelo.objetovalor;
 
 import com.ceiba.descuento.constante.NumeroReferenciaDescuento;
 import com.ceiba.producto.constante.TipoClienteProducto;

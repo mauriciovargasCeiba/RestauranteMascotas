@@ -30,14 +30,14 @@ public class ConsultaControladorReservaTest {
                 get("/reservas")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(2)))
+        .andExpect(jsonPath("$", hasSize(3)))
         .andExpect(jsonPath("$[0].nombreCompletoCliente", is("Cliente Test")));
     }
 
     @Test
     public void mostrar() throws Exception {
         // arrange
-        String codigoGenerado = "000_1234";
+        String codigoGenerado = "00021203660000_1234";
 
         // act - assert
         mockMvc.perform(

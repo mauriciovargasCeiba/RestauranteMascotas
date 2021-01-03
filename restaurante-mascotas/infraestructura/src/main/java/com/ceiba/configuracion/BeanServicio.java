@@ -1,9 +1,12 @@
 package com.ceiba.configuracion;
 
+import com.ceiba.descuento.servicio.ServicioCalcularDescuento;
 import com.ceiba.mascota.puerto.dao.DaoMascota;
 import com.ceiba.mascota.puerto.repositorio.RepositorioMascota;
 import com.ceiba.mascota.servicio.ServicioEliminarMascota;
 import com.ceiba.mascota.servicio.ServicioRegistrarMascota;
+import com.ceiba.producto.puerto.dao.DaoProducto;
+import com.ceiba.producto.servicio.ServicioListarProductosConDescuento;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.ServicioReservar;
@@ -45,10 +48,13 @@ public class BeanServicio {
     }
 
     @Bean
-    public RestTemplate restTemplate(ObjectMapper objectMapper) {
-        return new RestTemplateBuilder()
-                .additionalMessageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
-                .build();
+    public ServicioCalcularDescuento servicioCalcularDescuento(DaoReserva daoReserva) {
+        return new ServicioCalcularDescuento(daoReserva);
+    }
+
+    @Bean
+    public ServicioListarProductosConDescuento servicioListarProductosConDescuento(DaoProducto daoProducto, ServicioCalcularDescuento servicioCalcularDescuento) {
+        return new ServicioListarProductosConDescuento(daoProducto, servicioCalcularDescuento);
     }
 
 }

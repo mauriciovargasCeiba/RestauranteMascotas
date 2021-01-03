@@ -28,7 +28,7 @@ public class ComandoReservaTestDataBuilder {
         return this;
     }
 
-    public ComandoReservaTestDataBuilder conFecha(LocalDateTime fechaYHora) {
+    public ComandoReservaTestDataBuilder conFechaYhora(LocalDateTime fechaYHora) {
         this.fechaYHora = fechaYHora;
         return this;
     }

@@ -10,6 +10,7 @@ import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.NUM_REF_SI
 public final class ServicioGenerarCodigoReserva {
 
     private static final String CODIGO_SIN_MASCOTA = "0000";
+
     private static final String FORMATO_TRES_DIGITOS = "%1$3s";
     private static final String FORMATO_DOS_DIGITOS = "%1$2s";
 

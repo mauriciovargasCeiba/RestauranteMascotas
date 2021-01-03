@@ -12,8 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -40,13 +40,13 @@ public class ComandoControladorReservaTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(reserva))
         ).andExpect(status().isOk())
-        .andExpect(content().json("{\"valor\":3}"));
+        .andExpect(content().json("{\"valor\":4}"));
     }
 
     @Test
     public void cancelar() throws Exception {
         // arrange
-        String codigoGenerado = "003_1234";
+        String codigoGenerado = "00321203510000_1234";
 
         // act - assert
         mockMvc.perform(
