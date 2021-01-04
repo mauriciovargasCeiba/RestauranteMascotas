@@ -1,6 +1,7 @@
 package com.ceiba.reserva.adaptador.dao;
 
 import com.ceiba.infraestructura.jdbc.MapperResult;
+import com.ceiba.mascota.modelo.dto.DtoMascota;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -18,10 +19,19 @@ public class MapeoReserva implements RowMapper<DtoReserva>, MapperResult {
         LocalDateTime fechaYHora = extraerLocalDateTime(rs, "fecha_hora");
         String nombreCompletoCliente = rs.getString("nombre_completo");
         String telefonoCliente = rs.getString("telefono");
-        Long idMascota = rs.getLong("id_mascota");
+        DtoMascota mascota = mapRowMascota(rs);
         String codigoGenerado = rs.getString("codigo_generado");
 
-        return new DtoReserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, idMascota, codigoGenerado);
+        return new DtoReserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, mascota, codigoGenerado);
+    }
+
+    private DtoMascota mapRowMascota(ResultSet rs) throws SQLException {
+        Long id = rs.getLong("id_mascota");
+        String nombre = rs.getString("nombre_mascota");
+        String especie =  rs.getString("especie_mascota");
+        Integer edad = rs.getInt("edad_mascota");
+
+        return new DtoMascota(id, nombre, especie, edad);
     }
 
 }

@@ -5,7 +5,6 @@ import com.ceiba.reserva.modelo.entidad.Reserva;
 import java.time.LocalDateTime;
 
 import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.*;
-import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.NUM_REF_SIN_DESCUENTO;
 
 public final class ServicioGenerarCodigoReserva {
 

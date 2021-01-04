@@ -17,6 +17,11 @@ public class MascotaTestDataBuilder {
         edad = 6;
     }
 
+    public MascotaTestDataBuilder conId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public MascotaTestDataBuilder conNombre(String nombre) {
         this.nombre = nombre;
         return this;

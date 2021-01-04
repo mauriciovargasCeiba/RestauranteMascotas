@@ -37,8 +37,8 @@ public interface DaoReserva {
     /**
      * Permite contar el número de reservas en un mes determinado para una mascota específica
      * @param fechaYHora
-     * @param idMascota
+     * @param mascota
      * @return número de reservas en un mes determinado para una mascota
      */
-    Long contarConFechaYMascota(LocalDateTime fechaYHora, Long idMascota);
+    Long contarConFechaYMascota(LocalDateTime fechaYHora, Long mascota);
 }

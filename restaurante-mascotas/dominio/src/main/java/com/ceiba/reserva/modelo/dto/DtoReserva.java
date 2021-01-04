@@ -1,5 +1,6 @@
 package com.ceiba.reserva.modelo.dto;
 
+import com.ceiba.mascota.modelo.dto.DtoMascota;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,6 +14,6 @@ public class DtoReserva {
     private LocalDateTime fechaYHora;
     private String nombreCompletoCliente;
     private String telefonoCliente;
-    private Long idMascota;
+    private DtoMascota mascota;
     private String codigoGenerado;
 }

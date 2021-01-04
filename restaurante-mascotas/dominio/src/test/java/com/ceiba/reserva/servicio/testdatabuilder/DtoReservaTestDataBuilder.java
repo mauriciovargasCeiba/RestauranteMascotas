@@ -1,5 +1,7 @@
 package com.ceiba.reserva.servicio.testdatabuilder;
 
+import com.ceiba.mascota.modelo.dto.DtoMascota;
+import com.ceiba.mascota.servicio.testdatabuilder.DtoMascotaTestDataBuilder;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 
 import java.time.LocalDateTime;
@@ -10,7 +12,7 @@ public class DtoReservaTestDataBuilder {
     private LocalDateTime fechaYHora;
     private String nombreCompletoCliente;
     private String telefonoCliente;
-    private Long idMascota;
+    private DtoMascota dtoMascota;
     private String codigoGenerado;
 
     public DtoReservaTestDataBuilder() {
@@ -19,7 +21,7 @@ public class DtoReservaTestDataBuilder {
         fechaYHora = LocalDateTime.now().plusDays(1L).withHour(12);
         nombreCompletoCliente = "Cliente Test";
         telefonoCliente = "1234567890";
-        idMascota = 1234L;
+        dtoMascota = new DtoMascotaTestDataBuilder().conId(1234L).build();
         codigoGenerado = "123_1234";
     }
 
@@ -48,8 +50,8 @@ public class DtoReservaTestDataBuilder {
         return this;
     }
 
-    public DtoReservaTestDataBuilder conIdMascota(Long idMascota) {
-        this.idMascota = idMascota;
+    public DtoReservaTestDataBuilder conMascota(DtoMascota dtoMascota) {
+        this.dtoMascota = dtoMascota;
         return this;
     }
 
@@ -59,6 +61,6 @@ public class DtoReservaTestDataBuilder {
     }
 
     public DtoReserva build() {
-        return new DtoReserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, idMascota, codigoGenerado);
+        return new DtoReserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, dtoMascota, codigoGenerado);
     }
 }

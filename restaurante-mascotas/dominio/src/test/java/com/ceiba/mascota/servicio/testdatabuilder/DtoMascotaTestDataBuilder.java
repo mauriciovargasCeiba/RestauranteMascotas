@@ -1,44 +1,44 @@
 package com.ceiba.mascota.servicio.testdatabuilder;
 
-import com.ceiba.mascota.comando.ComandoMascota;
+import com.ceiba.mascota.modelo.dto.DtoMascota;
 
 import static com.ceiba.mascota.constante.Especie.PERRO;
 
-public class ComandoMascotaTestDataBuilder {
-
+public class DtoMascotaTestDataBuilder {
     private Long id;
     private String nombre;
     private String especie;
     private Integer edad;
 
-    public ComandoMascotaTestDataBuilder() {
+    public DtoMascotaTestDataBuilder() {
         id = 1L;
         nombre = "Mascota Test";
         especie = PERRO.toString();
         edad = 6;
     }
 
-    public ComandoMascotaTestDataBuilder conId(Long id) {
+    public DtoMascotaTestDataBuilder conId(Long id) {
         this.id = id;
         return this;
     }
 
-    public ComandoMascotaTestDataBuilder conNombre(String nombre) {
+    public DtoMascotaTestDataBuilder conNombre(String nombre) {
         this.nombre = nombre;
         return this;
     }
 
-    public ComandoMascotaTestDataBuilder conEspecie(String especie) {
+    public DtoMascotaTestDataBuilder conEspecie(String especie) {
         this.especie = especie;
         return this;
     }
 
-    public ComandoMascotaTestDataBuilder conEdad(Integer edad) {
+    public DtoMascotaTestDataBuilder conEdad(Integer edad) {
         this.edad = edad;
         return this;
     }
 
-    public ComandoMascota build() {
-        return new ComandoMascota(id, nombre, especie, edad);
+    public DtoMascota build() {
+        return new DtoMascota(id, nombre, especie, edad);
     }
+
 }
