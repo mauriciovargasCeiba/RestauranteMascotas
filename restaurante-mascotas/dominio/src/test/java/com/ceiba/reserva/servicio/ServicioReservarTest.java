@@ -180,4 +180,19 @@ public class ServicioReservarTest {
         );
     }
 
+    @Test
+    public void ejecutarConDescuentos() {
+        // arrange
+        LocalDateTime fechaYHoraConDescuentos = LocalDateTime.of(2121,01,15,15,0,0);
+        Reserva reservaConDosDescuentos = new ReservaTestDataBuilder().conFechaYHora(fechaYHoraConDescuentos).build();
+        when(repositorioDescuento.asignarAReserva(anyLong(), anyLong())).thenReturn(eq(anyInt()));
+
+        // act
+        servicioReservar.ejecutar(reservaConDosDescuentos);
+
+        // assert
+        verify(repositorioDescuento, times(2)).asignarAReserva(anyLong(), anyLong());
+
+    }
+
 }
