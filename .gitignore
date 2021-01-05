@@ -37,3 +37,4 @@ restaurante-mascotas/infraestructura/src/main/java/com/ceiba/producto
 restaurante-mascotas/dominio/src/test/java/com/ceiba/descuento
 restaurante-mascotas/dominio/src/test/java/com/ceiba/producto
 restaurante-mascotas/infraestructura/src/test/java/com/ceiba/producto
+restaurante-mascotas/infraestructura/src/main/resources/sql/producto
