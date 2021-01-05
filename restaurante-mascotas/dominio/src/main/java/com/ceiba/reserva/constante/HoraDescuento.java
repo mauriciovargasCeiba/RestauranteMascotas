@@ -1,4 +1,4 @@
-package com.ceiba.descuento.constante;
+package com.ceiba.reserva.constante;
 
 import java.time.LocalTime;
 

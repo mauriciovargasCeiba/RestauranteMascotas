@@ -1,6 +1,6 @@
 package com.ceiba.descuento.modelo.objetovalor;
 
-import com.ceiba.descuento.constante.NumeroReferenciaDescuento;
+import com.ceiba.reserva.constante.NumeroReferenciaDescuento;
 import com.ceiba.producto.constante.TipoClienteProducto;
 import com.ceiba.producto.constante.TipoProducto;
 import lombok.Getter;

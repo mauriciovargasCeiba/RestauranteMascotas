@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static com.ceiba.dominio.ValidadorArgumento.*;
-import static com.ceiba.descuento.constante.FechaDescuento.*;
-import static com.ceiba.descuento.constante.HoraDescuento.HORA_CUATRO_DE_LA_TARDE;
-import static com.ceiba.descuento.constante.HoraDescuento.HORA_DOS_DE_LA_TARDE;
-import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.NUM_REF_SIN_DESCUENTO;
+import static com.ceiba.reserva.constante.FechaDescuento.*;
+import static com.ceiba.reserva.constante.HoraDescuento.HORA_CUATRO_DE_LA_TARDE;
+import static com.ceiba.reserva.constante.HoraDescuento.HORA_DOS_DE_LA_TARDE;
+import static com.ceiba.reserva.constante.NumeroReferenciaDescuento.NUM_REF_SIN_DESCUENTO;
 
 @Getter
 public class Reserva {

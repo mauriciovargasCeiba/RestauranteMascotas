@@ -1,0 +1,1 @@
+insert into reserva_con_descuento (id_reserva, id_descuento, vigente) values (:idReserva, :idDescuento, true);

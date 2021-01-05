@@ -1,13 +1,11 @@
 package com.ceiba.configuracion;
 
-import com.ceiba.descuento.servicio.ServicioCalcularDescuento;
 import com.ceiba.mascota.puerto.dao.DaoMascota;
 import com.ceiba.mascota.puerto.repositorio.RepositorioMascota;
 import com.ceiba.mascota.servicio.ServicioEliminarMascota;
 import com.ceiba.mascota.servicio.ServicioRegistrarMascota;
-import com.ceiba.producto.puerto.dao.DaoProducto;
-import com.ceiba.producto.servicio.ServicioListarProductosConDescuento;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
+import com.ceiba.reserva.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.ServicioCancelarReserva;
 import com.ceiba.reserva.servicio.ServicioMostrarReserva;
@@ -19,8 +17,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeanServicio {
 
     @Bean
-    public ServicioReservar servicioReservar(RepositorioReserva repositorioReserva, DaoReserva daoReserva, DaoMascota daoMascota) {
-        return new ServicioReservar(repositorioReserva, daoReserva, daoMascota);
+    public ServicioReservar servicioReservar(RepositorioReserva repositorioReserva, DaoReserva daoReserva, DaoMascota daoMascota, RepositorioDescuento repositorioDescuento) {
+        return new ServicioReservar(repositorioReserva, daoReserva, daoMascota, repositorioDescuento);
     }
 
     @Bean
@@ -43,14 +41,5 @@ public class BeanServicio {
         return new ServicioEliminarMascota(repositorioMascota, daoMascota);
     }
 
-    @Bean
-    public ServicioCalcularDescuento servicioCalcularDescuento(DaoReserva daoReserva) {
-        return new ServicioCalcularDescuento(daoReserva);
-    }
-
-    @Bean
-    public ServicioListarProductosConDescuento servicioListarProductosConDescuento(DaoProducto daoProducto, ServicioCalcularDescuento servicioCalcularDescuento) {
-        return new ServicioListarProductosConDescuento(daoProducto, servicioCalcularDescuento);
-    }
 
 }

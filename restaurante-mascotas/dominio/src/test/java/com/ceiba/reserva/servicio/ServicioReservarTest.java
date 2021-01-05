@@ -1,6 +1,7 @@
 package com.ceiba.reserva.servicio;
 
 import com.ceiba.BasePrueba;
+import com.ceiba.reserva.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.mascota.puerto.dao.DaoMascota;
@@ -23,13 +24,15 @@ public class ServicioReservarTest {
     private RepositorioReserva repositorioReserva;
     private DaoReserva daoReserva;
     private DaoMascota daoMascota;
+    private RepositorioDescuento repositorioDescuento;
 
     @Before
     public void inicializar() {
         repositorioReserva = mock(RepositorioReserva.class);
         daoReserva = mock(DaoReserva.class);
         daoMascota = mock(DaoMascota.class);
-        servicioReservar = new ServicioReservar(repositorioReserva, daoReserva, daoMascota);
+        repositorioDescuento = mock(RepositorioDescuento.class);
+        servicioReservar = new ServicioReservar(repositorioReserva, daoReserva, daoMascota, repositorioDescuento);
         when(daoReserva.contarConFechaYMascota(any(),anyLong())).thenReturn(0L);
         when(repositorioReserva.reservar(any())).thenReturn(1L);
         when(daoMascota.existe(any())).thenReturn(true);

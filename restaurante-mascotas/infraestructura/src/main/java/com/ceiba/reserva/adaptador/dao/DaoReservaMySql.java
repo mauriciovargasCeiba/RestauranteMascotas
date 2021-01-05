@@ -1,5 +1,6 @@
 package com.ceiba.reserva.adaptador.dao;
 
+import com.ceiba.reserva.modelo.dto.DtoDescuento;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class DaoReservaMySql implements DaoReserva {
@@ -17,6 +19,9 @@ public class DaoReservaMySql implements DaoReserva {
 
     @SqlStatement(namespace="reserva", value="listar")
     private static String sqlListar;
+
+    @SqlStatement(namespace="reserva", value="listar_descuentos")
+    private static String sqlListarDescuentos;
 
     @SqlStatement(namespace="reserva", value="mostrar")
     private static String sqlMostrar;
@@ -36,7 +41,8 @@ public class DaoReservaMySql implements DaoReserva {
 
     @Override
     public List<DtoReserva> listar() {
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar, new MapeoReserva());
+        Map<Long, List<DtoDescuento>> codigosDescuento = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListarDescuentos, new ExtractorDescuentosReserva());
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar, new MapeoReserva(codigosDescuento));
     }
 
     @Override
@@ -44,7 +50,8 @@ public class DaoReservaMySql implements DaoReserva {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("codigoGenerado", codigoGenerado);
 
-        return customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlMostrar, paramSource, new MapeoReserva()).get(0);
+        Map<Long, List<DtoDescuento>> codigosDescuento = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListarDescuentos, new ExtractorDescuentosReserva());
+        return customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlMostrar, paramSource, new MapeoReserva(codigosDescuento)).get(0);
     }
 
     @Override

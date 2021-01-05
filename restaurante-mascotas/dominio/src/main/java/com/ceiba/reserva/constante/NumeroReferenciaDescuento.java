@@ -1,4 +1,4 @@
-package com.ceiba.descuento.constante;
+package com.ceiba.reserva.constante;
 
 public enum NumeroReferenciaDescuento {
     NUM_REF_SIN_DESCUENTO(0),
@@ -6,13 +6,13 @@ public enum NumeroReferenciaDescuento {
     NUM_REF_DESCUENTO_DIEZ_POR_CIENTO_COMIDA_CLIENTE(2),
     NUM_REF_DESCUENTO_DOS_JUGUETES_GRATIS_MASCOTA(3);
 
-    private int valorNumerico;
+    private long valorNumerico;
 
-    public int obtenerValorNumerico() {
+    public long obtenerValorNumerico() {
         return valorNumerico;
     }
 
-    NumeroReferenciaDescuento(int valorNumerico) {
+    NumeroReferenciaDescuento(long valorNumerico) {
         this.valorNumerico = valorNumerico;
     }
 }

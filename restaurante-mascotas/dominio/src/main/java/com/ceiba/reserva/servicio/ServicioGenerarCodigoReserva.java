@@ -4,7 +4,7 @@ import com.ceiba.reserva.modelo.entidad.Reserva;
 
 import java.time.LocalDateTime;
 
-import static com.ceiba.descuento.constante.NumeroReferenciaDescuento.*;
+import static com.ceiba.reserva.constante.NumeroReferenciaDescuento.*;
 
 public final class ServicioGenerarCodigoReserva {
 
@@ -43,6 +43,10 @@ public final class ServicioGenerarCodigoReserva {
         return anadirCerosALaIzquierda(codigoDescuento, FORMATO_TRES_DIGITOS);
     }
 
+    private static String anadirCerosALaIzquierda(Object codigo, String cantidadCeros) {
+        return String.format(cantidadCeros, codigo).replace(' ', '0');
+    }
+
     private static String generarCodigoCompleto(Reserva reserva, String codigoDescuento) {
         String codigoMascota = formatearCodigoMascota(reserva);
         String codigoFechaYHora = formatearFechaYHora(reserva);
@@ -72,10 +76,5 @@ public final class ServicioGenerarCodigoReserva {
 
         return fechaYHoraConcatenadas.toString();
     }
-
-    private static String anadirCerosALaIzquierda(Object codigo, String cantidadCeros) {
-        return String.format(cantidadCeros, codigo).replace(' ', '0');
-    }
-
 
 }
