@@ -1,7 +1,6 @@
 package com.ceiba.reserva.adaptador.dao;
 
 import com.ceiba.reserva.modelo.dto.DtoDescuento;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.sql.ResultSet;
@@ -14,7 +13,7 @@ import java.util.Map;
 public class ExtractorDescuentosReserva implements ResultSetExtractor<Map<Long, List<DtoDescuento>>> {
 
     @Override
-    public Map<Long, List<DtoDescuento>> extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public Map<Long, List<DtoDescuento>> extractData(ResultSet rs) throws SQLException {
         Map<Long, List<DtoDescuento>> descuentosPorReserva = new HashMap<>();
 
         while (rs.next()) {

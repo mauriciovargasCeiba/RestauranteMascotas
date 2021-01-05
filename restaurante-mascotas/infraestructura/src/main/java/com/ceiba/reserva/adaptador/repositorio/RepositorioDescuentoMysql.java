@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class RepositorioDescuentoMysql implements RepositorioDescuento {
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
-    @SqlStatement(namespace="descuento", value="asignar_descuentos")
+    @SqlStatement(namespace="reserva", value="asignar_descuentos")
     private static String sqlAsignarDescuentos;
 
     public RepositorioDescuentoMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
@@ -18,11 +18,11 @@ public class RepositorioDescuentoMysql implements RepositorioDescuento {
     }
 
     @Override
-    public void asignarAReserva(Long idDescuento, Long idReserva) {
+    public Integer asignarAReserva(Long idDescuento, Long idReserva) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("idDescuento", idDescuento);
         paramSource.addValue("idReserva", idReserva);
 
-        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlAsignarDescuentos, paramSource);
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlAsignarDescuentos, paramSource);
     }
 }

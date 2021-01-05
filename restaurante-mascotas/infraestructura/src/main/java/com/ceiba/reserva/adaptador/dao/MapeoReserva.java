@@ -30,9 +30,9 @@ public class MapeoReserva implements RowMapper<DtoReserva>, MapperResult {
         String telefonoCliente = rs.getString("telefono");
         DtoMascota mascota = mapRowMascota(rs);
         String codigoGenerado = rs.getString("codigo_generado");
-        List<DtoDescuento> descuentos = this.descuentos.get(id);
+        List<DtoDescuento> dtoDescuentos = this.descuentos.get(id);
 
-        return new DtoReserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, mascota, codigoGenerado, descuentos);
+        return new DtoReserva(id, numeroMesa, fechaYHora, nombreCompletoCliente, telefonoCliente, mascota, codigoGenerado, dtoDescuentos);
     }
 
     private DtoMascota mapRowMascota(ResultSet rs) throws SQLException {

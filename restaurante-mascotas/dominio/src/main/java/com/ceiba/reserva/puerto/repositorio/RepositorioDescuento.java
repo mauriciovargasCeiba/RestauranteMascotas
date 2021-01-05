@@ -6,6 +6,6 @@ public interface RepositorioDescuento {
      * @param idDescuento
      * @param idReserva
      */
-    void asignarAReserva(Long idDescuento, Long idReserva);
+    Integer asignarAReserva(Long idDescuento, Long idReserva);
 
 }

@@ -29,7 +29,8 @@ public class ConsultaControladorReservaTest {
         mockMvc.perform(
                 get("/reservas")
                 .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk())
+        ).andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(3)))
         .andExpect(jsonPath("$[0].nombreCompletoCliente", is("Cliente Test")));
     }
