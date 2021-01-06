@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.SortedMap;
+
 @RestController
 @RequestMapping("/reservas")
 @Api(tags = {"Controlador comando reserva"})
@@ -26,7 +28,7 @@ public class ComandoControladorReserva {
     
     @PostMapping
     @ApiOperation("Reservar")
-    public ComandoRespuesta<Long> reservar(@RequestBody ComandoReserva comandoReserva) {
+    public ComandoRespuesta<SortedMap<Long, String>> reservar(@RequestBody ComandoReserva comandoReserva) {
         return manejadorReservar.ejecutar(comandoReserva);
     }
 

@@ -1,13 +1,13 @@
 package com.ceiba.reserva.servicio;
 
 import com.ceiba.BasePrueba;
-import com.ceiba.reserva.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.mascota.puerto.dao.DaoMascota;
 import com.ceiba.reserva.excepcion.ExcepcionReservaConMesaYFechaYaExiste;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
+import com.ceiba.reserva.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
 import org.junit.Assert;
@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.util.TreeMap;
 
 import static org.mockito.Mockito.*;
 
@@ -33,8 +34,13 @@ public class ServicioReservarTest {
         daoMascota = mock(DaoMascota.class);
         repositorioDescuento = mock(RepositorioDescuento.class);
         servicioReservar = new ServicioReservar(repositorioReserva, daoReserva, daoMascota, repositorioDescuento);
+
         when(daoReserva.contarConFechaYMascota(any(),anyLong())).thenReturn(0L);
-        when(repositorioReserva.reservar(any())).thenReturn(1L);
+
+        TreeMap<Long, String> idYCodigoGenerado = new TreeMap<>();
+        idYCodigoGenerado.put(1L, "00021203661100_0000");
+        when(repositorioReserva.reservar(any())).thenReturn(idYCodigoGenerado);
+
         when(daoMascota.existe(any())).thenReturn(true);
     }
 
@@ -44,7 +50,7 @@ public class ServicioReservarTest {
         Reserva reserva = new ReservaTestDataBuilder().build();
 
         // act - assert
-        Assert.assertEquals(1L, servicioReservar.ejecutar(reserva).longValue());
+        Assert.assertEquals(1L, servicioReservar.ejecutar(reserva).firstKey().longValue());
     }
 
     @Test

@@ -8,8 +8,10 @@ import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.servicio.ServicioReservar;
 import org.springframework.stereotype.Component;
 
+import java.util.SortedMap;
+
 @Component
-public class ManejadorReservar implements ManejadorComandoRespuesta<ComandoReserva, ComandoRespuesta<Long>> {
+public class ManejadorReservar implements ManejadorComandoRespuesta<ComandoReserva, ComandoRespuesta<SortedMap<Long, String>>> {
 
     private final FabricaReserva fabricaReserva;
     private final ServicioReservar servicioReservar;
@@ -20,7 +22,7 @@ public class ManejadorReservar implements ManejadorComandoRespuesta<ComandoReser
     }
 
     @Override
-    public ComandoRespuesta<Long> ejecutar(ComandoReserva comandoReserva) {
+    public ComandoRespuesta<SortedMap<Long, String>> ejecutar(ComandoReserva comandoReserva) {
         Reserva reserva = fabricaReserva.crear(comandoReserva);
         return new ComandoRespuesta<>(servicioReservar.ejecutar(reserva));
     }

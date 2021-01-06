@@ -53,7 +53,7 @@ create table reserva_con_descuento (
     id_descuento int not null,
     vigente boolean not null,
     primary key (id_reserva, id_descuento),
-    foreign key (id_reserva) references reserva(id),
+    foreign key (id_reserva) references reserva(id) on delete cascade,
     foreign key (id_descuento) references descuento(id)
 );
 
