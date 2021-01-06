@@ -14,8 +14,11 @@ spring:
    datasource:
       driver-class-name: org.h2.Driver
       type: com.zaxxer.hikari.HikariDataSource
-      jdbcUrl: jdbc:h2:mem:reserva
+      jdbcUrl: jdbc:h2:file:~/restaurante-mascotas-db
       username: root
       password: nhQJ0jsdmJMXiUHH5tKBIGjUNzSzBIjv
       hikari:
          poolName: pool
+   jpa:
+      hibernate:
+         ddl-auto: update
