@@ -36,7 +36,7 @@ public class ConsultaControladorReservaTest {
     @Test
     public void mostrar() throws Exception {
         // arrange
-        String codigoGenerado = "00021203660000_1234";
+        String codigoGenerado = "0002120366000001_1234";
 
         // act - assert
         mockMvc.perform(

@@ -48,7 +48,7 @@ public class ComandoControladorReservaTest {
     @Test
     public void cancelar() throws Exception {
         // arrange
-        String codigoGenerado = "00321203510000_1234";
+        String codigoGenerado = "0032120351000002_1234";
 
         // act - assert
         mockMvc.perform(
@@ -71,7 +71,7 @@ public class ComandoControladorReservaTest {
                         .content(objectMapper.writeValueAsString(reservaConDescuento))
         ).andDo(
                 result -> {
-                    String codigoGenerado = "02321210151500_1234";
+                    String codigoGenerado = "0232121015150001_1234";
                     mockMvc.perform(
                             get("/reservas/{codigoGenerado}", codigoGenerado)
                                     .contentType(MediaType.APPLICATION_JSON)

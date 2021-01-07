@@ -20,7 +20,7 @@ public class ComandoReservaTestDataBuilder {
         nombreCompletoCliente = "Cliente Test";
         telefonoCliente = "1234567890";
         idMascota = 1234L;
-        codigoGenerado = "0001_1234";
+        codigoGenerado = "0002120366100001_1234";
     }
 
     public ComandoReservaTestDataBuilder conNumeroMesa(Integer numeroMesa) {

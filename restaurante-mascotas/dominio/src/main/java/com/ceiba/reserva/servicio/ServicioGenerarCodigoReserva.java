@@ -50,9 +50,11 @@ public final class ServicioGenerarCodigoReserva {
     private static String generarCodigoCompleto(Reserva reserva, String codigoDescuento) {
         String codigoMascota = formatearCodigoMascota(reserva);
         String codigoFechaYHora = formatearFechaYHora(reserva);
+        String codigoMesa = anadirCerosALaIzquierda(reserva.getNumeroMesa(), FORMATO_DOS_DIGITOS);
         return new StringBuilder()
                 .append(codigoDescuento)
                 .append(codigoFechaYHora)
+                .append(codigoMesa)
                 .append("_")
                 .append(codigoMascota)
                 .toString().toUpperCase();
