@@ -9,7 +9,6 @@ import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
-import java.util.TreeMap;
 
 import static com.ceiba.reserva.constante.NumeroReferenciaDescuento.*;
 import static com.ceiba.reserva.constante.NumeroReferenciaDescuento.NUM_REF_SIN_DESCUENTO;
@@ -40,13 +39,11 @@ public class ServicioReservar {
         }
 
         reserva.generarCodigo();
+        SortedMap<Long, String> idYCodigoGenerado = this.repositorioReserva.reservar(reserva);
 
-        Long idReserva = this.repositorioReserva.reservar(reserva).firstKey();
-
+        Long idReserva = idYCodigoGenerado.firstKey();
         asignarDescuentos(reserva, idReserva);
 
-        TreeMap<Long, String> idYCodigoGenerado = new TreeMap<>();
-        idYCodigoGenerado.put(idReserva, reserva.getCodigoGenerado());
         return idYCodigoGenerado;
     }
 
