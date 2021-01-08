@@ -15,7 +15,7 @@ create table reserva (
  id_mascota int,
  codigo_generado varchar(30),
  primary key (id),
- foreign key (id_mascota) references mascota(id)
+ foreign key (id_mascota) references mascota(id) on delete cascade
 );
 
 create table descuento (
@@ -23,29 +23,6 @@ create table descuento (
     descripcion varchar(255) not null,
     valor decimal(5,2) not null,
     primary key (id)
-);
-
-create table tipo_producto (
-    id int not null auto_increment,
-    valor varchar(50) not null,
-    primary key (id)
-);
-
-create table tipo_cliente (
-    id int not null auto_increment,
-    valor varchar(50) not null,
-    primary key (id)
-);
-
-create table descuento_para_tipo_producto_y_cliente (
-    id int not null auto_increment,
-    id_descuento int not null,
-    id_tipo_producto int not null,
-    id_tipo_cliente int not null,
-    primary key (id),
-    foreign key (id_descuento) references descuento(id),
-    foreign key (id_tipo_producto) references tipo_producto(id),
-    foreign key (id_tipo_cliente) references tipo_cliente(id)
 );
 
 create table reserva_con_descuento (
@@ -56,13 +33,3 @@ create table reserva_con_descuento (
     foreign key (id_reserva) references reserva(id) on delete cascade,
     foreign key (id_descuento) references descuento(id)
 );
-
-create table producto (
-    id int not null auto_increment,
-    nombre varchar(100) not null,
-    tipo varchar(50) not null,
-    tipo_cliente varchar(50) not null,
-    precio decimal(7,2) not null,
-    primary key (id)
-);
-
